@@ -530,6 +530,15 @@ fun ImagesScreen(
                         value = formatFileSize(image.size)
                     )
 
+                    HorizontalDivider()
+
+                    StatusRow(
+                        name = "SHA-256",
+                        value = image.sha256
+                    )
+
+                    HorizontalDivider()
+
                     StatusRow(
                         name = "Status",
                         value = "Imported"
