@@ -1,3 +1,5 @@
+pub mod image;
+
 use sha2::{Digest, Sha256};
 
 /// Calculates SHA-256 for arbitrary bytes.
