@@ -1,8 +1,12 @@
 @file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+
 package com.securegsi
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -36,10 +40,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
@@ -293,7 +299,7 @@ fun EmptyVMCard() {
 @Composable
 fun SystemStatusCard() {
 
-    val context = androidx.compose.ui.platform.LocalContext.current
+    val context = LocalContext.current
 
     val status = remember {
         SystemStatusReader.read(context)
@@ -416,6 +422,35 @@ fun ImagesScreen(
     modifier: Modifier = Modifier
 ) {
 
+    val context = LocalContext.current
+
+    var selectedImage by remember {
+        mutableStateOf<ImageInfo?>(null)
+    }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri ->
+
+        if (uri != null) {
+
+            try {
+                context.contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            } catch (_: SecurityException) {
+                // Некоторые файловые провайдеры не поддерживают
+                // постоянное разрешение.
+            }
+
+            selectedImage = ImageManager.getImageInfo(
+                context,
+                uri
+            )
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -433,7 +468,7 @@ fun ImagesScreen(
         )
 
         Text(
-            text = "GSI and VM images will appear here.",
+            text = "GSI and VM images",
             style = MaterialTheme.typography.bodyMedium
         )
 
@@ -443,7 +478,15 @@ fun ImagesScreen(
 
         Button(
             onClick = {
-                // Импорт GSI добавим позже
+
+                launcher.launch(
+                    arrayOf(
+                        "application/octet-stream",
+                        "application/zip",
+                        "application/x-raw-disk-image",
+                        "*/*"
+                    )
+                )
             }
         ) {
 
@@ -458,7 +501,75 @@ fun ImagesScreen(
 
             Text("Import image")
         }
+
+        Spacer(
+            modifier = Modifier.height(24.dp)
+        )
+
+        selectedImage?.let { image ->
+
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+
+                    Text(
+                        text = image.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    HorizontalDivider()
+
+                    StatusRow(
+                        name = "Size",
+                        value = formatFileSize(image.size)
+                    )
+
+                    StatusRow(
+                        name = "Status",
+                        value = "Imported"
+                    )
+                }
+            }
+        }
     }
+}
+
+fun formatFileSize(size: Long): String {
+
+    if (size <= 0) {
+        return "Unknown"
+    }
+
+    val units = arrayOf(
+        "B",
+        "KB",
+        "MB",
+        "GB",
+        "TB"
+    )
+
+    var value = size.toDouble()
+    var index = 0
+
+    while (
+        value >= 1024 &&
+        index < units.lastIndex
+    ) {
+        value /= 1024
+        index++
+    }
+
+    return String.format(
+        "%.2f %s",
+        value,
+        units[index]
+    )
 }
 
 @Composable
