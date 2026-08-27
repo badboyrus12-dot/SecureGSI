@@ -2,6 +2,15 @@
 name = "rust"
 version = "0.1.0"
 edition = "2024"
+license = "GPL-3.0-only"
+
+[lib]
+crate-type = ["cdylib"]
 
 [dependencies]
 sha2 = "0.10"
+jni = "0.21"
+libc = "0.2"
+argon2 = "0.5.3"
+zeroize = "1.8"
+rand_core = { version = "0.6", features = ["getrandom"] }

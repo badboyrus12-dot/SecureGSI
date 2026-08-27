@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+RUST="$ROOT/rust"
+
+echo "=== AEGIS SECURITY CHECK ==="
+
+cd "$RUST"
+
+echo
+echo "[1/4] cargo audit"
+cargo audit
+
+echo
+echo "[2/4] cargo deny"
+cargo deny check
+
+echo
+echo "[3/4] unsafe inventory"
+cargo geiger --all-features
+
+cd "$ROOT"
+
+echo
+echo "[4/4] gitleaks"
+gitleaks git --redact --no-banner .
+
+echo
+echo "=== SECURITY CHECK PASSED ==="

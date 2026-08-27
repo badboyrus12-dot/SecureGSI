@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+RUST="$ROOT/rust"
+
+echo "=== AEGIS FAST CHECK ==="
+
+cd "$RUST"
+
+echo
+echo "[1/4] cargo fmt"
+cargo fmt --check
+
+echo
+echo "[2/4] cargo check"
+cargo check --all-targets --all-features
+
+echo
+echo "[3/4] cargo clippy"
+cargo clippy --all-targets --all-features -- -D warnings
+
+echo
+echo "[4/4] cargo test"
+cargo test --all-targets --all-features
+
+echo
+echo "=== FAST CHECK PASSED ==="

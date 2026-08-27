@@ -2,8 +2,6 @@ package com.securegsi
 
 import android.content.Context
 import android.net.Uri
-import androidx.documentfile.provider.DocumentFile
-import java.security.MessageDigest
 
 data class ImageInfo(
     val name: String,
@@ -19,60 +17,29 @@ object ImageManager {
         uri: Uri
     ): ImageInfo? {
 
-        val document = DocumentFile.fromSingleUri(
-            context,
-            uri
-        ) ?: return null
-
-        val sha256 = calculateSha256(
-            context,
-            uri
-        ) ?: return null
-
-        return ImageInfo(
-            name = document.name ?: "Unknown image",
-            size = document.length(),
-            uri = uri,
-            sha256 = sha256
-        )
-    }
-
-    private fun calculateSha256(
-        context: Context,
-        uri: Uri
-    ): String? {
-
         return try {
+            val resolver = context.contentResolver
 
-            val digest = MessageDigest.getInstance("SHA-256")
+            val name = uri.lastPathSegment ?: "Unknown image"
 
-            context.contentResolver.openInputStream(uri)?.use { input ->
+            val size = resolver
+                .openFileDescriptor(uri, "r")
+                ?.use { it.statSize }
+                ?: -1L
 
-                val buffer = ByteArray(1024 * 1024)
+            val sha256 = resolver
+                .openFileDescriptor(uri, "r")
+                ?.use { RustBridge.sha256(it) }
+                ?: return null
 
-                while (true) {
-
-                    val bytesRead = input.read(buffer)
-
-                    if (bytesRead == -1) {
-                        break
-                    }
-
-                    digest.update(
-                        buffer,
-                        0,
-                        bytesRead
-                    )
-                }
-            } ?: return null
-
-            digest.digest()
-                .joinToString("") { byte ->
-                    "%02x".format(byte)
-                }
+            ImageInfo(
+                name = name,
+                size = size,
+                uri = uri,
+                sha256 = sha256
+            )
 
         } catch (e: Exception) {
-
             e.printStackTrace()
             null
         }

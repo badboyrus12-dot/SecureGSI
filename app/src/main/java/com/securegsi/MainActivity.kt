@@ -89,9 +89,7 @@ fun SecureGSIApp() {
                 },
                 actions = {
                     IconButton(
-                        onClick = {
-                            // Настройки добавим позже
-                        }
+                        onClick = {}
                     ) {
                         Icon(
                             imageVector = Icons.Default.Settings,
@@ -101,7 +99,6 @@ fun SecureGSIApp() {
                 }
             )
         },
-
         bottomBar = {
             NavigationBar {
 
@@ -176,7 +173,6 @@ fun DashboardScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
-
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
@@ -234,15 +230,13 @@ fun DashboardScreen(
 fun EmptyVMCard() {
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = CardDefaults.shape
+        modifier = Modifier.fillMaxWidth()
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
-
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -276,9 +270,7 @@ fun EmptyVMCard() {
             )
 
             Button(
-                onClick = {
-                    // VM creation добавим позже
-                }
+                onClick = {}
             ) {
 
                 Icon(
@@ -428,11 +420,23 @@ fun ImagesScreen(
         mutableStateOf<ImageInfo?>(null)
     }
 
+    var header by remember {
+        mutableStateOf<String?>(null)
+    }
+
+    var error by remember {
+        mutableStateOf<String?>(null)
+    }
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri ->
 
-        if (uri != null) {
+        if (uri == null) {
+            return@rememberLauncherForActivityResult
+        }
+
+        try {
 
             try {
                 context.contentResolver.takePersistableUriPermission(
@@ -440,14 +444,27 @@ fun ImagesScreen(
                     Intent.FLAG_GRANT_READ_URI_PERMISSION
                 )
             } catch (_: SecurityException) {
-                // Некоторые файловые провайдеры не поддерживают
-                // постоянное разрешение.
             }
+
+            error = null
+            header = null
 
             selectedImage = ImageManager.getImageInfo(
                 context,
                 uri
             )
+
+            if (selectedImage == null) {
+                error = "Failed to read image"
+            }
+
+        } catch (e: Exception) {
+
+            e.printStackTrace()
+
+            selectedImage = null
+            header = null
+            error = e.message ?: "Unknown error"
         }
     }
 
@@ -506,6 +523,24 @@ fun ImagesScreen(
             modifier = Modifier.height(24.dp)
         )
 
+        error?.let { message ->
+
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Text(
+                    text = message,
+                    modifier = Modifier.padding(16.dp),
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+        }
+
         selectedImage?.let { image ->
 
             Card(
@@ -543,13 +578,69 @@ fun ImagesScreen(
                         name = "Status",
                         value = "Imported"
                     )
+
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
+
+                    Button(
+                        onClick = {
+
+                            try {
+
+                                context.contentResolver
+                                    .openFileDescriptor(
+                                        image.uri,
+                                        "r"
+                                    )
+                                    ?.use { descriptor ->
+
+                                        header = RustBridge.readHeader(
+                                            descriptor
+                                        )
+                                    }
+
+                                error = null
+
+                            } catch (e: Exception) {
+
+                                e.printStackTrace()
+
+                                header = null
+                                error =
+                                    e.message
+                                        ?: "Rust header read failed"
+                            }
+                        }
+                    ) {
+
+                        Text("Read header with Rust")
+                    }
+
+                    header?.let { value ->
+
+                        HorizontalDivider()
+
+                        Text(
+                            text = "First 64 bytes",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Text(
+                            text = value,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
                 }
             }
         }
     }
 }
 
-fun formatFileSize(size: Long): String {
+fun formatFileSize(
+    size: Long
+): String {
 
     if (size <= 0) {
         return "Unknown"
@@ -586,6 +677,42 @@ fun SecurityScreen(
     modifier: Modifier = Modifier
 ) {
 
+    val context = LocalContext.current
+
+    var runtimeResult by remember {
+        mutableStateOf<String?>(null)
+    }
+
+    var runtimeError by remember {
+        mutableStateOf<String?>(null)
+    }
+
+    var isolatedResult by remember {
+        mutableStateOf<String?>(null)
+    }
+
+    val initialGuestStatus = remember {
+        try {
+            RustBridge.guestStatus()
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            "SecureGSI Guest Runtime\nStatus: UNKNOWN"
+        }
+    }
+
+    var guestResult by remember {
+        mutableStateOf<String?>(initialGuestStatus)
+    }
+
+    var guestRunning by remember {
+        mutableStateOf(
+            initialGuestStatus.contains(
+                "Status: RUNNING",
+                ignoreCase = true
+            )
+        )
+    }
+
     val securityOptions = listOf(
         "Storage encryption" to "Encrypt VM storage",
         "Network isolation" to "Restrict guest network access",
@@ -596,7 +723,6 @@ fun SecurityScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(20.dp),
-
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
 
@@ -613,13 +739,287 @@ fun SecurityScreen(
             )
 
             Text(
-                text = "Security policies for virtual machines.",
+                text = "Security policies and guest runtime.",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
 
-        items(securityOptions) { option ->
+        item {
 
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+
+                    Text(
+                        text = "SecureGSI Guest Runtime",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text = if (guestRunning) {
+                            "Guest supervisor is running."
+                        } else {
+                            "Guest supervisor is stopped."
+                        },
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
+                    StatusRow(
+                        name = "Guest status",
+                        value = if (guestRunning) {
+                            "RUNNING"
+                        } else {
+                            "STOPPED"
+                        }
+                    )
+
+                    Button(
+                        onClick = {
+                            guestResult = try {
+                                RustBridge.startGuestProbe(context)
+
+                                val status = RustBridge.guestStatus()
+
+                                guestRunning = status.contains(
+                                    "Status: RUNNING",
+                                    ignoreCase = true
+                                )
+
+                                status
+                            } catch (e: Throwable) {
+                                e.printStackTrace()
+
+                                guestRunning = false
+
+                                "Guest runtime failed: ${
+                                    e.message ?: e.javaClass.simpleName
+                                }"
+                            }
+                        },
+                        enabled = !guestRunning
+                    ) {
+                        Text("Start guest")
+                    }
+
+                    Button(
+                        onClick = {
+                            guestResult = try {
+                                RustBridge.stopGuest()
+
+                                val status = RustBridge.guestStatus()
+
+                                guestRunning = status.contains(
+                                    "Status: RUNNING",
+                                    ignoreCase = true
+                                )
+
+                                status
+                            } catch (e: Throwable) {
+                                e.printStackTrace()
+
+                                "Failed to stop guest: ${
+                                    e.message ?: e.javaClass.simpleName
+                                }"
+                            }
+                        },
+                        enabled = guestRunning
+                    ) {
+                        Text("Stop guest")
+                    }
+
+                    Button(
+                        onClick = {
+                            guestResult = try {
+                                val status = RustBridge.guestStatus()
+
+                                guestRunning = status.contains(
+                                    "Status: RUNNING",
+                                    ignoreCase = true
+                                )
+
+                                status
+                            } catch (e: Throwable) {
+                                e.printStackTrace()
+
+                                "Failed to read guest status: ${
+                                    e.message ?: e.javaClass.simpleName
+                                }"
+                            }
+                        }
+                    ) {
+                        Text("Refresh status")
+                    }
+
+                    guestResult?.let { result ->
+
+                        HorizontalDivider()
+
+                        Text(
+                            text = "Guest runtime report",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Text(
+                            text = result,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+            }
+        }
+
+        item {
+
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+
+                    Text(
+                        text = "Isolated process probe",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text =
+                            "Starts the Aegis guest service using Android " +
+                                    "isolatedProcess and reads its PID and UID.",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
+                    Button(
+                        onClick = {
+                            isolatedResult = "Starting isolated process..."
+
+                            AegisIsolatedClient.probe(
+                                context = context
+                            ) { result ->
+                                isolatedResult = result
+                            }
+                        }
+                    ) {
+                        Text("Probe isolated process")
+                    }
+
+                    isolatedResult?.let { result ->
+
+                        HorizontalDivider()
+
+                        Text(
+                            text = "Isolated process identity",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Text(
+                            text = result,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+            }
+        }
+
+        item {
+
+            Card(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+
+                    Text(
+                        text = "Container capability test",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text =
+                            "Diagnostic test for Linux namespaces. " +
+                                    "SecureGSI does not require this test " +
+                                    "to pass for the guest supervisor.",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
+                    Button(
+                        onClick = {
+                            runtimeError = null
+
+                            runtimeResult = try {
+                                RustBridge.testContainerRuntime()
+                            } catch (e: Throwable) {
+                                e.printStackTrace()
+
+                                runtimeError =
+                                    e.message ?: e.javaClass.simpleName
+
+                                null
+                            }
+                        }
+                    ) {
+                        Text("Test container runtime")
+                    }
+
+                    runtimeError?.let { message ->
+
+                        HorizontalDivider()
+
+                        Text(
+                            text = "Runtime test failed",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.error
+                        )
+
+                        Text(
+                            text = message,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+
+                    runtimeResult?.let { result ->
+
+                        HorizontalDivider()
+
+                        Text(
+                            text = "Runtime capability report",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Text(
+                            text = result,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+            }
+        }
+
+        items(securityOptions) { option ->
             SecurityOption(
                 title = option.first,
                 description = option.second
@@ -642,7 +1042,6 @@ fun SecurityOption(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -671,3 +1070,4 @@ fun SecurityOption(
         }
     }
 }
+

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+echo "========================================"
+echo " AEGIS FULL CHECK"
+echo "========================================"
+
+"$ROOT/scripts/check-fast"
+echo
+"$ROOT/scripts/check-security"
+
+echo
+echo "========================================"
+echo " FULL CHECK PASSED"
+echo "========================================"

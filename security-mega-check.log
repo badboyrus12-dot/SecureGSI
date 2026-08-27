@@ -1,0 +1,467 @@
+
+========== FULL CHECK ==========
+========================================
+ AEGIS FULL CHECK
+========================================
+=== AEGIS FAST CHECK ===
+
+[1/4] cargo fmt
+
+[2/4] cargo check
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling version_check v0.9.5
+    Checking typenum v1.20.1
+   Compiling jni-sys v0.3.1
+   Compiling thiserror v1.0.69
+    Checking memchr v2.8.3
+    Checking cfg-if v1.0.4
+    Checking bytes v1.12.1
+   Compiling libc v0.2.189
+    Checking log v0.4.33
+    Checking cpufeatures v0.2.17
+    Checking cesu8 v1.1.0
+   Compiling generic-array v0.14.7
+    Checking combine v4.6.7
+    Checking block-buffer v0.10.4
+    Checking crypto-common v0.1.7
+   Compiling syn v2.0.119
+    Checking digest v0.10.7
+    Checking sha2 v0.10.9
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+    Checking jni-sys v0.4.1
+    Checking jni v0.21.1
+    Checking rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.20s
+
+[3/4] cargo clippy
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling thiserror v1.0.69
+   Compiling jni-sys v0.3.1
+   Compiling libc v0.2.189
+   Compiling generic-array v0.14.7
+    Checking crypto-common v0.1.7
+    Checking block-buffer v0.10.4
+    Checking digest v0.10.7
+   Compiling syn v2.0.119
+    Checking sha2 v0.10.9
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+    Checking jni-sys v0.4.1
+    Checking jni v0.21.1
+    Checking rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.52s
+
+[4/4] cargo test
+   Compiling typenum v1.20.1
+   Compiling cfg-if v1.0.4
+   Compiling memchr v2.8.3
+   Compiling bytes v1.12.1
+   Compiling cesu8 v1.1.0
+   Compiling log v0.4.33
+   Compiling cpufeatures v0.2.17
+   Compiling libc v0.2.189
+   Compiling jni-sys v0.4.1
+   Compiling thiserror v1.0.69
+   Compiling jni-sys v0.3.1
+   Compiling combine v4.6.7
+   Compiling generic-array v0.14.7
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling jni v0.21.1
+   Compiling rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.36s
+     Running unittests src/lib.rs (target/debug/deps/rust-d0ae5e538bc7fe58)
+
+running 4 tests
+test image::tests::read_header_limit_is_valid ... ok
+test tests::rust_ready_works ... ok
+test tests::sha256_works ... ok
+test image::tests::sha256_reader_works ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+=== FAST CHECK PASSED ===
+
+=== AEGIS SECURITY CHECK ===
+
+[1/4] cargo audit
+    Fetching advisory database from `https://github.com/RustSec/advisory-db.git`
+      Loaded 1225 security advisories (from /home/user/.cargo/advisory-db)
+    Updating crates.io index
+    Scanning Cargo.lock for vulnerabilities (40 crate dependencies)
+
+[2/4] cargo deny
+warning[duplicate]: found 2 duplicate entries for crate 'windows-sys'
+   ┌─ /mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/Cargo.lock:31:1
+   │  
+31 │ ╭ windows-sys 0.45.0 registry+https://github.com/rust-lang/crates.io-index
+32 │ │ windows-sys 0.61.2 registry+https://github.com/rust-lang/crates.io-index
+   │ ╰────────────────────────────────────────────────────────────────────────┘ lock entries
+   │  
+   ├ windows-sys v0.45.0
+     └── jni v0.21.1
+         └── rust v0.1.0
+   ├ windows-sys v0.61.2
+     └── winapi-util v0.1.11
+         ├── same-file v1.0.6
+         │   └── walkdir v2.5.0
+         │       └── (build) jni v0.21.1
+         │           └── rust v0.1.0
+         └── walkdir v2.5.0 (*)
+
+advisories ok, bans ok, licenses ok, sources ok
+
+[3/4] unsafe inventory
+     Removed 742 files, 221.8MiB total
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling version_check v0.9.5
+    Checking typenum v1.20.1
+   Compiling jni-sys v0.3.1
+   Compiling thiserror v1.0.69
+    Checking cfg-if v1.0.4
+   Compiling libc v0.2.189
+    Checking bytes v1.12.1
+    Checking memchr v2.8.3
+    Checking log v0.4.33
+    Checking cpufeatures v0.2.17
+    Checking cesu8 v1.1.0
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/cfg_if-8e014ddcb785b96d.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/log-3abd3f2106062399.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/cpufeatures-61d389a9f523e928.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/quote-6dff9724e4e81362/build_script_build-6dff9724e4e81362.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/thiserror-c38a878e108bbc23/build_script_build-c38a878e108bbc23.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/cesu8-2f6e4c5800e20026.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcfg_if-8e014ddcb785b96d.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/jni-sys-43c1c552b495f510/build_script_build-43c1c552b495f510.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/unicode_ident-8443eb632a3fbe4c.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/version_check-48d66f356588878b.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/proc-macro2-7d0ed4e509752a35/build_script_build-7d0ed4e509752a35.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcpufeatures-61d389a9f523e928.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/bytes-c3394b0af77a15c5.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/libc-19124a20af635abc/build_script_build-19124a20af635abc.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/memchr-0263503a7d6f4437.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libunicode_ident-8443eb632a3fbe4c.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcesu8-2f6e4c5800e20026.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/liblog-3abd3f2106062399.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/typenum-0bb98beaf5b40e6d.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libunicode_ident-8443eb632a3fbe4c.rlib","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libversion_check-48d66f356588878b.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libversion_check-48d66f356588878b.rlib","emit":"link"}
+   Compiling generic-array v0.14.7
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libmemchr-0263503a7d6f4437.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libbytes-c3394b0af77a15c5.rmeta","emit":"metadata"}
+    Checking combine v4.6.7
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/generic-array-c471f65fcb0548d3/build_script_build-c471f65fcb0548d3.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libtypenum-0bb98beaf5b40e6d.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/combine-54fe0278b298735f.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/jni-sys-43c1c552b495f510/build_script_build-43c1c552b495f510","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/thiserror-c38a878e108bbc23/build_script_build-c38a878e108bbc23","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/quote-6dff9724e4e81362/build_script_build-6dff9724e4e81362","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/proc-macro2-7d0ed4e509752a35/build_script_build-7d0ed4e509752a35","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/libc-19124a20af635abc/build_script_build-19124a20af635abc","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/generic-array-c471f65fcb0548d3/build_script_build-c471f65fcb0548d3","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/generic_array-79f6a63db51bd373.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/proc_macro2-cb79944ef996a02b.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libc-4b3943b2fd1e2eec.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libproc_macro2-cb79944ef996a02b.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libgeneric_array-79f6a63db51bd373.rmeta","emit":"metadata"}
+    Checking block-buffer v0.10.4
+    Checking crypto-common v0.1.7
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libproc_macro2-cb79944ef996a02b.rlib","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/block_buffer-299732a4e3048fcf.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/crypto_common-ace1ae37f646d743.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcrypto_common-ace1ae37f646d743.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libblock_buffer-299732a4e3048fcf.rmeta","emit":"metadata"}
+    Checking digest v0.10.7
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/quote-9a408a5f97606779.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/liblibc-4b3943b2fd1e2eec.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/digest-6ec33620076f7268.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libquote-9a408a5f97606779.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libdigest-6ec33620076f7268.rmeta","emit":"metadata"}
+    Checking sha2 v0.10.9
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libquote-9a408a5f97606779.rlib","emit":"link"}
+   Compiling syn v2.0.119
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/sha2-01969256f474e9a8.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libsha2-01969256f474e9a8.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/syn-7a6bc41ff4575ae9.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcombine-54fe0278b298735f.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libsyn-7a6bc41ff4575ae9.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libsyn-7a6bc41ff4575ae9.rlib","emit":"link"}
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/jni_sys_macros-b35b93d45dbc340e.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/thiserror_impl-ea1373f41f8727df.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libjni_sys_macros-b35b93d45dbc340e.so","emit":"link"}
+    Checking jni-sys v0.4.1
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/jni_sys-230f8adbdc4b8cb7.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libjni_sys-230f8adbdc4b8cb7.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libthiserror_impl-ea1373f41f8727df.so","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/jni_sys-5acbccb32a521f32.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libjni_sys-5acbccb32a521f32.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/thiserror-19391372f5f3e96a.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libthiserror-19391372f5f3e96a.rmeta","emit":"metadata"}
+    Checking jni v0.21.1
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/jni-250d5519859cc889.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libjni-250d5519859cc889.rmeta","emit":"metadata"}
+    Checking rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/rust-d4cf5f3ee4da3fa6.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/librust-d4cf5f3ee4da3fa6.rmeta","emit":"metadata"}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 9.90s
+    Scanning done
+
+Metric output format: x/y
+    x = unsafe code used by the build
+    y = total unsafe code found in the crate
+
+Symbols:
+    :) = No `unsafe` usage found, declares #![forbid(unsafe_code)]
+    ?  = No `unsafe` usage found, missing #![forbid(unsafe_code)]
+    !  = `unsafe` usage found
+
+Functions  Expressions  Impls  Traits  Methods  Dependency
+
+4/4        67/69        0/0    0/0     0/0      !  rust 0.1.0
+0/2        587/674      32/32  3/3     41/41    !  ├── jni 0.21.1
+0/0        6/6          0/0    0/0     0/0      !  │   ├── cesu8 1.1.0
+0/0        0/0          0/0    0/0     0/0      ?  │   ├── cfg-if 1.0.4
+0/0        42/43        0/0    0/0     3/3      !  │   ├── combine 4.6.7
+40/40      780/826      12/14  1/1     16/20    !  │   │   ├── bytes 1.12.1
+34/48      1992/2440    2/2    0/0     110/148  !  │   │   └── memchr 2.8.3
+2/2        18/18        1/1    0/0     0/0      !  │   │       └── log 0.4.33
+0/0        0/0          0/0    0/0     0/0      ?  │   ├── jni-sys 0.3.1
+0/0        17/17        0/0    0/0     0/0      !  │   │   └── jni-sys 0.4.1
+0/0        0/0          0/0    0/0     0/0      ?  │   │       └── jni-sys-macros 0.4.1
+0/0        0/0          0/0    0/0     0/0      ?  │   │           ├── quote 1.0.47
+0/0        14/14        0/0    0/0     3/3      !  │   │           │   └── proc-macro2 1.0.107
+0/0        4/4          0/0    0/0     0/0      !  │   │           │       └── unicode-ident 1.0.24
+0/0        87/87        3/3    0/0     2/2      !  │   │           └── syn 2.0.119
+0/0        14/14        0/0    0/0     3/3      !  │   │               ├── proc-macro2 1.0.107
+0/0        0/0          0/0    0/0     0/0      ?  │   │               ├── quote 1.0.47
+0/0        4/4          0/0    0/0     0/0      !  │   │               └── unicode-ident 1.0.24
+2/2        18/18        1/1    0/0     0/0      !  │   ├── log 0.4.33
+0/0        0/0          0/0    0/0     0/0      ?  │   └── thiserror 1.0.69
+0/0        0/0          0/0    0/0     0/0      ?  │       └── thiserror-impl 1.0.69
+0/0        14/14        0/0    0/0     3/3      !  │           ├── proc-macro2 1.0.107
+0/0        0/0          0/0    0/0     0/0      ?  │           ├── quote 1.0.47
+0/0        87/87        3/3    0/0     2/2      !  │           └── syn 2.0.119
+0/93       35/738       2/10   0/0     8/101    !  ├── libc 0.2.189
+8/18       178/707      0/0    0/0     0/0      !  └── sha2 0.10.9
+0/0        0/0          0/0    0/0     0/0      ?      ├── cfg-if 1.0.4
+0/1        0/12         0/0    0/0     0/0      ?      ├── cpufeatures 0.2.17
+0/0        0/0          0/0    0/0     0/0      :)     └── digest 0.10.7
+0/0        16/16        0/0    0/0     0/0      !          ├── block-buffer 0.10.4
+1/1        285/285      20/20  8/8     5/5      !          │   └── generic-array 0.14.7
+0/0        0/0          0/0    0/0     0/0      :)         │       └── typenum 1.20.1
+0/0        0/0          0/0    0/0     0/0      :)         └── crypto-common 0.1.7
+1/1        285/285      20/20  8/8     5/5      !              ├── generic-array 0.14.7
+0/0        0/0          0/0    0/0     0/0      :)             └── typenum 1.20.1
+
+89/209     4128/5956    72/82  12/12   188/323
+
+
+[4/4] gitleaks
+[90m2:24PM[0m [32mINF[0m [1m6 commits scanned.[0m
+[90m2:24PM[0m [32mINF[0m [1mscanned ~131918 bytes (131.92 KB) in 1.94s[0m
+[90m2:24PM[0m [32mINF[0m [1mno leaks found[0m
+
+=== SECURITY CHECK PASSED ===
+
+========================================
+ FULL CHECK PASSED
+========================================
+
+========== MIRI ==========
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling thiserror v1.0.69
+   Compiling jni-sys v0.3.1
+   Compiling libc v0.2.189
+   Compiling generic-array v0.14.7
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling digest v0.10.7
+   Compiling syn v2.0.119
+   Compiling sha2 v0.10.9
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+   Compiling jni-sys v0.4.1
+   Compiling jni v0.21.1
+   Compiling rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.44s
+     Running unittests src/lib.rs (target/miri/x86_64-unknown-linux-gnu/debug/build/rust/7f919d411b6394fd/out/rust-7f919d411b6394fd)
+
+running 4 tests
+test image::tests::read_header_limit_is_valid ... ok
+test image::tests::sha256_reader_works ... ok
+test tests::rust_ready_works ... ok
+test tests::sha256_works ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.07s
+
+
+========== CAREFUL ==========
+Preparing a careful sysroot (target: x86_64-unknown-linux-gnu)... done
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling thiserror v1.0.69
+   Compiling jni-sys v0.3.1
+   Compiling libc v0.2.189
+   Compiling generic-array v0.14.7
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling digest v0.10.7
+   Compiling syn v2.0.119
+   Compiling sha2 v0.10.9
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+   Compiling jni-sys v0.4.1
+   Compiling jni v0.21.1
+   Compiling rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.58s
+     Running unittests src/lib.rs (target/debug/build/rust/7994f07a8eb14c18/out/rust-7994f07a8eb14c18)
+
+running 4 tests
+test image::tests::read_header_limit_is_valid ... ok
+test tests::rust_ready_works ... ok
+test tests::sha256_works ... ok
+test image::tests::sha256_reader_works ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+========== NEXTEST ==========
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling thiserror v1.0.69
+   Compiling jni-sys v0.3.1
+   Compiling bytes v1.12.1
+   Compiling libc v0.2.189
+   Compiling cfg-if v1.0.4
+   Compiling memchr v2.8.3
+   Compiling log v0.4.33
+   Compiling cpufeatures v0.2.17
+   Compiling cesu8 v1.1.0
+   Compiling generic-array v0.14.7
+   Compiling combine v4.6.7
+   Compiling syn v2.0.119
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+   Compiling jni-sys v0.4.1
+   Compiling jni v0.21.1
+   Compiling rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.51s
+────────────
+ Nextest run ID 133f44ff-3a48-4fbf-be4b-fe23cb40a8a4 with nextest profile: default
+    Starting 4 tests across 1 binary
+        PASS [   0.012s] (1/4) rust tests::rust_ready_works
+        PASS [   0.012s] (2/4) rust tests::sha256_works
+        PASS [   0.013s] (3/4) rust image::tests::read_header_limit_is_valid
+        PASS [   0.013s] (4/4) rust image::tests::sha256_reader_works
+────────────
+     Summary [   0.014s] 4 tests run: 4 passed, 0 skipped
+
+========== LLVM-COV ==========
+info: cargo-llvm-cov currently setting cfg(coverage); you can opt-out it by passing --no-cfg-coverage
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling jni-sys v0.3.1
+   Compiling thiserror v1.0.69
+   Compiling cfg-if v1.0.4
+   Compiling libc v0.2.189
+   Compiling bytes v1.12.1
+   Compiling memchr v2.8.3
+   Compiling cesu8 v1.1.0
+   Compiling cpufeatures v0.2.17
+   Compiling log v0.4.33
+   Compiling generic-array v0.14.7
+   Compiling combine v4.6.7
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling syn v2.0.119
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+   Compiling jni-sys v0.4.1
+   Compiling jni v0.21.1
+   Compiling rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.46s
+     Running unittests src/lib.rs (target/llvm-cov-target/debug/deps/rust-d0ae5e538bc7fe58)
+
+running 4 tests
+test tests::rust_ready_works ... ok
+test tests::sha256_works ... ok
+test image::tests::read_header_limit_is_valid ... ok
+test image::tests::sha256_reader_works ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+Filename                      Regions    Missed Regions     Cover   Functions  Missed Functions  Executed       Lines      Missed Lines     Cover    Branches   Missed Branches     Cover
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+guest.rs                          403               403     0.00%          24                24     0.00%         292               292     0.00%           0                 0         -
+image.rs                           71                28    60.56%           7                 2    71.43%          36                14    61.11%           0                 0         -
+lib.rs                            359               338     5.85%          24                20    16.67%         298               281     5.70%           0                 0         -
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                             833               769     7.68%          55                46    16.36%         626               587     6.23%           0                 0         -
+
+========== SEMGREP ==========
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 5 files tracked by git with 1074 Code rules:
+                                                                                                                        
+  Language      Rules   Files          Origin      Rules                                                                
+ ─────────────────────────────        ───────────────────                                                               
+  <multilang>      47       5          Community    1074                                                                
+  rust              4       4                                                                                           
+                                                                                                                        
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 51
+ • Targets scanned: 5
+ • Parsed lines: ~100.0%
+ • Scan was limited to files tracked by git
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 51 rules on 5 files: 0 findings.
+(need more rules? `semgrep login` for additional free Semgrep Registry rules)
+
+If Semgrep missed a finding, please send us feedback to let us know!
+See https://semgrep.dev/docs/reporting-false-negatives/
+
+========== OSV ==========
+Scanning dir ..
+Starting filesystem walk for root: /
+Scanned /mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/Cargo.lock file and found 40 packages
+End status: 1290 dirs visited, 7244 inodes visited, 1 Extract calls, 1.698693966s elapsed, 1.698694133s wall time
+
+No issues found
+
+========================================
+ ALL APPLICABLE CHECKS PASSED
+========================================
