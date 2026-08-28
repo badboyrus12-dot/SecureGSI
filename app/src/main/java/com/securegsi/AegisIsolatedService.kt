@@ -2,10 +2,12 @@ package com.securegsi
 
 import android.app.Service
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.os.Binder
 import android.os.IBinder
 import android.os.Parcel
 import android.os.Process
+import android.system.Os
 import android.util.Log
 import java.io.File
 
@@ -66,6 +68,8 @@ class AegisIsolatedService : Service() {
                     TAG,
                     "PERSISTENT_EXECUTOR_START_RESULT=$result"
                 )
+
+                logPersistentExecutorFdsForDebug(result)
 
                 reply?.writeNoException()
                 reply?.writeString(result)
@@ -285,6 +289,75 @@ class AegisIsolatedService : Service() {
                 e
             )
         }
+    }
+
+    private fun logPersistentExecutorFdsForDebug(
+        startResult: String
+    ) {
+        if (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE == 0) {
+            return
+        }
+
+        val pid =
+            Regex("""(?m)^PID:\s*(\d+)\s*$""")
+                .find(startResult)
+                ?.groupValues
+                ?.getOrNull(1)
+                ?.toIntOrNull()
+
+        if (pid == null) {
+            Log.w(
+                TAG,
+                "PERSISTENT_EXECUTOR_FD_AUDIT: PID_NOT_FOUND"
+            )
+            return
+        }
+
+        val fdDirectory =
+            File("/proc/$pid/fd")
+
+        val entries =
+            try {
+                fdDirectory
+                    .listFiles()
+                    ?.sortedBy {
+                        it.name.toIntOrNull()
+                            ?: Int.MAX_VALUE
+                    }
+            } catch (e: Throwable) {
+                Log.w(
+                    TAG,
+                    "PERSISTENT_EXECUTOR_FD_AUDIT: FAILED pid=$pid",
+                    e
+                )
+                null
+            }
+
+        if (entries == null) {
+            Log.w(
+                TAG,
+                "PERSISTENT_EXECUTOR_FD_AUDIT: UNAVAILABLE pid=$pid"
+            )
+            return
+        }
+
+        val details =
+            entries.joinToString(" | ") { entry ->
+                val target =
+                    try {
+                        Os.readlink(entry.absolutePath)
+                    } catch (e: Throwable) {
+                        "<unreadable:${e.javaClass.simpleName}>"
+                    }
+
+                "${entry.name} -> $target"
+            }
+
+        Log.i(
+            TAG,
+            "PERSISTENT_EXECUTOR_FD_AUDIT " +
+                    "pid=$pid count=${entries.size} fds=[$details]"
+        )
     }
 
     private fun readSecurityStatus(): String {
