@@ -13,3 +13,16 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Rust build artifacts
+/rust/target/
+
+# CodeQL generated artifacts
+/codeql-db-kotlin/
+*.sarif
+
+# Security scan logs
+security-mega-check.log
+
+# Kotlin generated diagnostics
+/.kotlin/
