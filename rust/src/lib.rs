@@ -1,6 +1,7 @@
 mod duress;
 mod guest;
 mod image;
+mod persistent_executor;
 
 use jni::JNIEnv;
 use jni::objects::{JClass, JString};
@@ -544,6 +545,60 @@ fn isolated_executor_proof_report() -> String {
     isolated_executor_parent_report(child_pid)
 }
 
+fn start_persistent_executor_report() -> String {
+    match persistent_executor::start() {
+        Ok(pid) => format!(
+            "PERSISTENT_EXECUTOR_START: OK\n\
+             PID: {pid}\n\
+             State: LOCKED"
+        ),
+        Err(errno) => format!(
+            "PERSISTENT_EXECUTOR_START: FAILED\n\
+             errno {errno}: {}",
+            errno_text(errno)
+        ),
+    }
+}
+
+fn ping_persistent_executor_report() -> String {
+    match persistent_executor::ping() {
+        Ok(pid) => format!(
+            "PERSISTENT_EXECUTOR_PING: PONG\n\
+             PID: {pid}"
+        ),
+        Err(errno) => format!(
+            "PERSISTENT_EXECUTOR_PING: FAILED\n\
+             errno {errno}: {}",
+            errno_text(errno)
+        ),
+    }
+}
+
+fn persistent_executor_status_report() -> String {
+    match persistent_executor::status() {
+        Ok(pid) => format!(
+            "PERSISTENT_EXECUTOR_STATUS: LOCKED\n\
+             PID: {pid}"
+        ),
+        Err(errno) => format!(
+            "PERSISTENT_EXECUTOR_STATUS: NOT_RUNNING_OR_FAILED\n\
+             errno {errno}: {}",
+            errno_text(errno)
+        ),
+    }
+}
+
+fn shutdown_persistent_executor_report() -> String {
+    match persistent_executor::shutdown() {
+        Ok(()) => String::from("PERSISTENT_EXECUTOR_SHUTDOWN: OK\nState: STOPPED"),
+        Err(errno) => format!(
+            "PERSISTENT_EXECUTOR_SHUTDOWN: FAILED\n\
+             errno {errno}: {}",
+            errno_text(errno)
+        ),
+    }
+}
+
 fn configure_duress_report(files_dir: &str, pin: &str) -> String {
     let root = std::path::Path::new(files_dir);
 
@@ -735,6 +790,46 @@ pub extern "system" fn Java_com_securegsi_RustBridge_runIsolatedExecutorProofNat
     _class: JClass,
 ) -> jstring {
     let report = isolated_executor_proof_report();
+
+    to_jstring(&env, &report)
+}
+
+#[unsafe(no_mangle)]
+pub extern "system" fn Java_com_securegsi_RustBridge_startPersistentExecutorNative(
+    env: JNIEnv,
+    _class: JClass,
+) -> jstring {
+    let report = start_persistent_executor_report();
+
+    to_jstring(&env, &report)
+}
+
+#[unsafe(no_mangle)]
+pub extern "system" fn Java_com_securegsi_RustBridge_pingPersistentExecutorNative(
+    env: JNIEnv,
+    _class: JClass,
+) -> jstring {
+    let report = ping_persistent_executor_report();
+
+    to_jstring(&env, &report)
+}
+
+#[unsafe(no_mangle)]
+pub extern "system" fn Java_com_securegsi_RustBridge_persistentExecutorStatusNative(
+    env: JNIEnv,
+    _class: JClass,
+) -> jstring {
+    let report = persistent_executor_status_report();
+
+    to_jstring(&env, &report)
+}
+
+#[unsafe(no_mangle)]
+pub extern "system" fn Java_com_securegsi_RustBridge_shutdownPersistentExecutorNative(
+    env: JNIEnv,
+    _class: JClass,
+) -> jstring {
+    let report = shutdown_persistent_executor_report();
 
     to_jstring(&env, &report)
 }

@@ -26,6 +26,18 @@ class AegisIsolatedService : Service() {
         const val TRANSACTION_GET_IDENTITY =
             IBinder.FIRST_CALL_TRANSACTION
 
+        const val TRANSACTION_START_EXECUTOR =
+            IBinder.FIRST_CALL_TRANSACTION + 1
+
+        const val TRANSACTION_PING_EXECUTOR =
+            IBinder.FIRST_CALL_TRANSACTION + 2
+
+        const val TRANSACTION_EXECUTOR_STATUS =
+            IBinder.FIRST_CALL_TRANSACTION + 3
+
+        const val TRANSACTION_SHUTDOWN_EXECUTOR =
+            IBinder.FIRST_CALL_TRANSACTION + 4
+
         private const val TAG =
             "Aegis-Isolated"
     }
@@ -38,6 +50,94 @@ class AegisIsolatedService : Service() {
             reply: Parcel?,
             flags: Int
         ): Boolean {
+
+            if (code == TRANSACTION_START_EXECUTOR) {
+                data.enforceInterface(DESCRIPTOR)
+
+                val result =
+                    try {
+                        RustBridge.startPersistentExecutor()
+                    } catch (e: Throwable) {
+                        "PERSISTENT_EXECUTOR_START: JNI_FAILED\n" +
+                                (e.message ?: e.javaClass.simpleName)
+                    }
+
+                Log.i(
+                    TAG,
+                    "PERSISTENT_EXECUTOR_START_RESULT=$result"
+                )
+
+                reply?.writeNoException()
+                reply?.writeString(result)
+
+                return true
+            }
+
+            if (code == TRANSACTION_PING_EXECUTOR) {
+                data.enforceInterface(DESCRIPTOR)
+
+                val result =
+                    try {
+                        RustBridge.pingPersistentExecutor()
+                    } catch (e: Throwable) {
+                        "PERSISTENT_EXECUTOR_PING: JNI_FAILED\n" +
+                                (e.message ?: e.javaClass.simpleName)
+                    }
+
+                Log.i(
+                    TAG,
+                    "PERSISTENT_EXECUTOR_PING_RESULT=$result"
+                )
+
+                reply?.writeNoException()
+                reply?.writeString(result)
+
+                return true
+            }
+
+            if (code == TRANSACTION_EXECUTOR_STATUS) {
+                data.enforceInterface(DESCRIPTOR)
+
+                val result =
+                    try {
+                        RustBridge.persistentExecutorStatus()
+                    } catch (e: Throwable) {
+                        "PERSISTENT_EXECUTOR_STATUS: JNI_FAILED\n" +
+                                (e.message ?: e.javaClass.simpleName)
+                    }
+
+                Log.i(
+                    TAG,
+                    "PERSISTENT_EXECUTOR_STATUS_RESULT=$result"
+                )
+
+                reply?.writeNoException()
+                reply?.writeString(result)
+
+                return true
+            }
+
+            if (code == TRANSACTION_SHUTDOWN_EXECUTOR) {
+                data.enforceInterface(DESCRIPTOR)
+
+                val result =
+                    try {
+                        RustBridge.shutdownPersistentExecutor()
+                    } catch (e: Throwable) {
+                        "PERSISTENT_EXECUTOR_SHUTDOWN: JNI_FAILED\n" +
+                                (e.message ?: e.javaClass.simpleName)
+                    }
+
+                Log.i(
+                    TAG,
+                    "PERSISTENT_EXECUTOR_SHUTDOWN_RESULT=$result"
+                )
+
+                reply?.writeNoException()
+                reply?.writeString(result)
+
+                return true
+            }
 
             if (code != TRANSACTION_GET_IDENTITY) {
                 return super.onTransact(

@@ -47,6 +47,14 @@ object RustBridge {
 
     private external fun runIsolatedExecutorProofNative(): String?
 
+    private external fun startPersistentExecutorNative(): String?
+
+    private external fun pingPersistentExecutorNative(): String?
+
+    private external fun persistentExecutorStatusNative(): String?
+
+    private external fun shutdownPersistentExecutorNative(): String?
+
     private external fun configureDuressNative(
         filesDir: String,
         pin: String
@@ -136,6 +144,32 @@ object RustBridge {
     fun runIsolatedExecutorProof(): String {
         return runIsolatedExecutorProofNative()
             ?: "Isolated Guest Executor proof JNI call failed"
+    }
+
+    /**
+     * Starts the persistent native executor.
+     *
+     * This method must only be called from AegisIsolatedService so the forked
+     * child originates inside Android isolatedProcess.
+     */
+    fun startPersistentExecutor(): String {
+        return startPersistentExecutorNative()
+            ?: "Persistent Guest Executor start JNI call failed"
+    }
+
+    fun pingPersistentExecutor(): String {
+        return pingPersistentExecutorNative()
+            ?: "Persistent Guest Executor ping JNI call failed"
+    }
+
+    fun persistentExecutorStatus(): String {
+        return persistentExecutorStatusNative()
+            ?: "Persistent Guest Executor status JNI call failed"
+    }
+
+    fun shutdownPersistentExecutor(): String {
+        return shutdownPersistentExecutorNative()
+            ?: "Persistent Guest Executor shutdown JNI call failed"
     }
 
     /**
