@@ -21,6 +21,32 @@ object RustBridge {
         System.loadLibrary("rust")
     }
 
+    private fun checkedFd(
+        fileDescriptor: ParcelFileDescriptor
+    ): Int {
+        val fd = fileDescriptor.fd
+
+        require(fd >= 0) {
+            "ParcelFileDescriptor is closed or invalid"
+        }
+
+        return fd
+    }
+
+    private fun requireValidDuressPinUtf8(
+        pin: String
+    ) {
+        val encoded = pin.toByteArray(Charsets.UTF_8)
+
+        try {
+            require(encoded.size in 4..64) {
+                "Duress PIN must contain 4..64 UTF-8 bytes"
+            }
+        } finally {
+            encoded.fill(0)
+        }
+    }
+
     private external fun sha256Fd(
         fd: Int
     ): String?
@@ -72,7 +98,7 @@ object RustBridge {
     fun sha256(
         fileDescriptor: ParcelFileDescriptor
     ): String {
-        return sha256Fd(fileDescriptor.fd)
+        return sha256Fd(checkedFd(fileDescriptor))
             ?: throw IllegalStateException(
                 "Rust SHA-256 failed"
             )
@@ -81,7 +107,7 @@ object RustBridge {
     fun readHeader(
         fileDescriptor: ParcelFileDescriptor
     ): String {
-        return readHeader(fileDescriptor.fd)
+        return readHeader(checkedFd(fileDescriptor))
             ?: throw IllegalStateException(
                 "Rust header read failed"
             )
@@ -296,9 +322,7 @@ object RustBridge {
         context: Context,
         pin: String
     ): String {
-        require(pin.length in 4..64) {
-            "Duress PIN must contain 4..64 characters"
-        }
+        requireValidDuressPinUtf8(pin)
 
         val filesDir =
             context.applicationContext.filesDir.absolutePath

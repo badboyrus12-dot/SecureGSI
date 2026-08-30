@@ -42,6 +42,35 @@ mod os {
         unsafe { dup(fd) }
     }
 
+    /// Duplicates a borrowed Unix/Android descriptor and returns an owned File.
+    ///
+    /// The only raw-FD ownership conversion used by JNI image operations lives
+    /// here, so callers outside this ABI shim stay entirely in safe Rust.
+    #[cfg(unix)]
+    pub fn duplicate_file(fd: i32) -> std::io::Result<std::fs::File> {
+        use std::os::fd::FromRawFd;
+
+        // SAFETY: dup validates the integer descriptor in the kernel. On
+        // success it returns a new descriptor owned by this function.
+        let duplicated_fd = unsafe { dup_fd(fd) };
+
+        if duplicated_fd < 0 {
+            return Err(std::io::Error::last_os_error());
+        }
+
+        // SAFETY: duplicated_fd is a fresh descriptor returned by dup above.
+        // Ownership is transferred exactly once into File.
+        Ok(unsafe { std::fs::File::from_raw_fd(duplicated_fd) })
+    }
+
+    #[cfg(not(unix))]
+    pub fn duplicate_file(_fd: i32) -> std::io::Result<std::fs::File> {
+        Err(std::io::Error::new(
+            std::io::ErrorKind::Unsupported,
+            "file descriptors are only supported on Unix/Android",
+        ))
+    }
+
     pub unsafe fn prctl5(option: i32, arg2: usize, arg3: usize, arg4: usize, arg5: usize) -> i32 {
         // SAFETY: This wrapper preserves the raw prctl ABI. Callers must ensure
         // that option-specific integer or pointer arguments are valid.
@@ -647,17 +676,12 @@ pub extern "system" fn Java_com_securegsi_RustBridge_sha256Fd(
     _class: JClass,
     fd: i32,
 ) -> jstring {
-    // SAFETY: fd is supplied by the JNI caller; dup validates it in the kernel
-    // and returns either an independently owned descriptor or -1.
-    let duplicated_fd = unsafe { os::dup_fd(fd) };
+    let file = match os::duplicate_file(fd) {
+        Ok(file) => file,
+        Err(_) => return std::ptr::null_mut(),
+    };
 
-    if duplicated_fd < 0 {
-        return std::ptr::null_mut();
-    }
-
-    // SAFETY: duplicated_fd is a fresh descriptor owned by this function and
-    // ownership is intentionally transferred to sha256_fd.
-    let hash = match unsafe { image::sha256_fd(duplicated_fd) } {
+    let hash = match image::sha256_file(file) {
         Ok(hash) => hash,
         Err(_) => return std::ptr::null_mut(),
     };
@@ -671,17 +695,12 @@ pub extern "system" fn Java_com_securegsi_RustBridge_readHeader(
     _class: JClass,
     fd: i32,
 ) -> jstring {
-    // SAFETY: fd is supplied by the JNI caller; dup validates it in the kernel
-    // and returns either an independently owned descriptor or -1.
-    let duplicated_fd = unsafe { os::dup_fd(fd) };
+    let file = match os::duplicate_file(fd) {
+        Ok(file) => file,
+        Err(_) => return std::ptr::null_mut(),
+    };
 
-    if duplicated_fd < 0 {
-        return std::ptr::null_mut();
-    }
-
-    // SAFETY: duplicated_fd is a fresh descriptor owned by this function and
-    // ownership is intentionally transferred to read_header_fd.
-    let header = match unsafe { image::read_header_fd(duplicated_fd, 64) } {
+    let header = match image::read_header_file(file, 64) {
         Ok(header) => header,
         Err(_) => return std::ptr::null_mut(),
     };

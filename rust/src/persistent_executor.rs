@@ -18,6 +18,10 @@
 
 use std::sync::Mutex;
 
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const CONTROL_FD: i32 = 3;
 
 const MAGIC_0: u8 = b'S';
@@ -33,6 +37,10 @@ const RESP_READY: u8 = 0x80;
 const RESP_PONG: u8 = 0x81;
 const RESP_LOCKED: u8 = 0x82;
 const RESP_BYE: u8 = 0x83;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const RESP_ERROR: u8 = 0xff;
 
 const AF_UNIX: i32 = 1;
@@ -45,30 +53,90 @@ const MSG_NOSIGNAL: i32 = 0x4000;
 const POLLIN: i16 = 0x0001;
 
 const SIGKILL: i32 = 9;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const SIG_SETMASK: i64 = 2;
 
 const RLIMIT_NOFILE: i32 = 7;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const MAX_FALLBACK_CLOSE_FDS: u32 = 1_048_576;
 
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const PR_SET_PDEATHSIG: i64 = 1;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const PR_SET_SECCOMP: i64 = 22;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const PR_SET_NO_NEW_PRIVS: i64 = 38;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const PR_GET_NO_NEW_PRIVS: i64 = 39;
 
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const SECCOMP_MODE_FILTER: i64 = 2;
 
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const BPF_LD_W_ABS: u16 = 0x20;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const BPF_JMP_JEQ_K: u16 = 0x15;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const BPF_RET_K: u16 = 0x06;
 
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const SECCOMP_RET_KILL_PROCESS: u32 = 0x8000_0000;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const SECCOMP_RET_ERRNO: u32 = 0x0005_0000;
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const SECCOMP_RET_ALLOW: u32 = 0x7fff_0000;
 
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 locked child")
+)]
 const EPERM: i32 = 1;
 const ENOENT: i32 = 2;
 const EIO: i32 = 5;
 const EBUSY: i32 = 16;
+#[expect(
+    dead_code,
+    reason = "retained in the explicit Linux errno table for this low-level TCB"
+)]
 const EINVAL: i32 = 22;
 const EPROTO: i32 = 71;
 const ETIMEDOUT: i32 = 110;
@@ -78,9 +146,17 @@ const STARTUP_TIMEOUT_MS: i32 = 2_000;
 #[cfg(target_arch = "aarch64")]
 const AUDIT_ARCH_NATIVE: u32 = 0xC000_00B7;
 #[cfg(target_arch = "x86_64")]
+#[expect(
+    dead_code,
+    reason = "retained for architecture audit documentation; locked child currently runs only on AArch64"
+)]
 const AUDIT_ARCH_NATIVE: u32 = 0xC000_003E;
 
 #[cfg(not(any(target_arch = "aarch64", target_arch = "x86_64")))]
+#[expect(
+    dead_code,
+    reason = "retained as the fail-closed architecture sentinel"
+)]
 const AUDIT_ARCH_NATIVE: u32 = 0;
 
 /*
@@ -95,6 +171,10 @@ mod nr {
     pub const CLOSE: i64 = 57;
     pub const EXIT: i64 = 93;
     pub const EXIT_GROUP: i64 = 94;
+    #[expect(
+        dead_code,
+        reason = "retained in the explicit AArch64 syscall table for audit completeness"
+    )]
     pub const KILL: i64 = 129;
     pub const RT_SIGPROCMASK: i64 = 135;
     pub const PRCTL: i64 = 167;
@@ -119,6 +199,10 @@ struct RLimit {
     rlim_max: u64,
 }
 
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 seccomp program")
+)]
 #[repr(C)]
 struct SockFilter {
     code: u16,
@@ -127,6 +211,10 @@ struct SockFilter {
     k: u32,
 }
 
+#[cfg_attr(
+    not(target_arch = "aarch64"),
+    expect(dead_code, reason = "used only by the AArch64 seccomp program")
+)]
 #[repr(C)]
 struct SockFprog {
     len: u16,
@@ -171,8 +259,7 @@ impl ExecutorState {
     }
 }
 
-static STATE: Mutex<ExecutorState> =
-    Mutex::new(ExecutorState::stopped());
+static STATE: Mutex<ExecutorState> = Mutex::new(ExecutorState::stopped());
 
 fn last_errno() -> i32 {
     std::io::Error::last_os_error()
@@ -181,16 +268,7 @@ fn last_errno() -> i32 {
 }
 
 const fn packet(opcode: u8) -> [u8; PACKET_LEN] {
-    [
-        MAGIC_0,
-        MAGIC_1,
-        PROTOCOL_VERSION,
-        opcode,
-        0,
-        0,
-        0,
-        0,
-    ]
+    [MAGIC_0, MAGIC_1, PROTOCOL_VERSION, opcode, 0, 0, 0, 0]
 }
 
 fn packet_opcode(bytes: &[u8; PACKET_LEN]) -> Option<u8> {
@@ -211,14 +289,10 @@ fn packet_opcode(bytes: &[u8; PACKET_LEN]) -> Option<u8> {
 fn parent_send(fd: i32, opcode: u8) -> Result<(), i32> {
     let bytes = packet(opcode);
 
-    let written = unsafe {
-        send(
-            fd,
-            bytes.as_ptr(),
-            bytes.len(),
-            MSG_NOSIGNAL,
-        )
-    };
+    // SAFETY: `bytes` is alive for the duration of the call and exposes a
+    // valid pointer/length pair. `fd` is an internal control-socket descriptor;
+    // an invalid/closed descriptor is reported by the kernel as an error.
+    let written = unsafe { send(fd, bytes.as_ptr(), bytes.len(), MSG_NOSIGNAL) };
 
     if written == bytes.len() as isize {
         Ok(())
@@ -229,24 +303,16 @@ fn parent_send(fd: i32, opcode: u8) -> Result<(), i32> {
     }
 }
 
-fn parent_recv(
-    fd: i32,
-    expected_opcode: u8,
-    timeout_ms: i32,
-) -> Result<(), i32> {
+fn parent_recv(fd: i32, expected_opcode: u8, timeout_ms: i32) -> Result<(), i32> {
     let mut poll_fd = PollFd {
         fd,
         events: POLLIN,
         revents: 0,
     };
 
-    let poll_result = unsafe {
-        poll(
-            &mut poll_fd,
-            1,
-            timeout_ms,
-        )
-    };
+    // SAFETY: `poll_fd` is initialized and remains exclusively borrowed for
+    // this call; `nfds` is exactly one, matching the single `PollFd` object.
+    let poll_result = unsafe { poll(&mut poll_fd, 1, timeout_ms) };
 
     if poll_result == 0 {
         return Err(ETIMEDOUT);
@@ -266,14 +332,9 @@ fn parent_recv(
      * MSG_TRUNC is intentional. For SOCK_SEQPACKET it lets us detect packets
      * larger than our buffer instead of silently accepting a valid prefix.
      */
-    let received = unsafe {
-        recv(
-            fd,
-            bytes.as_mut_ptr(),
-            bytes.len(),
-            MSG_TRUNC,
-        )
-    };
+    // SAFETY: `bytes` is a live writable buffer of exactly `bytes.len()`
+    // bytes for the duration of `recv`; kernel errors are handled below.
+    let received = unsafe { recv(fd, bytes.as_mut_ptr(), bytes.len(), MSG_TRUNC) };
 
     if received < 0 {
         return Err(last_errno());
@@ -297,19 +358,21 @@ fn parent_force_terminate(state: &mut ExecutorState) {
     state.control_fd = -1;
 
     if fd >= 0 {
+        // SAFETY: `fd >= 0` is a descriptor value owned by this executor state.
+        // `close` does not dereference userspace pointers; failures are ignored
+        // here because this path is already force-cleanup.
         unsafe {
             let _ = close(fd);
         }
     }
 
     if pid > 0 {
+        // SAFETY: `pid > 0` identifies the child process recorded in executor
+        // state. Linux permits a null status pointer to `waitpid` when the exit
+        // status is intentionally discarded.
         unsafe {
             let _ = kill(pid, SIGKILL);
-            let _ = waitpid(
-                pid,
-                std::ptr::null_mut(),
-                0,
-            );
+            let _ = waitpid(pid, std::ptr::null_mut(), 0);
         }
     }
 }
@@ -320,13 +383,9 @@ fn capture_fd_limit() -> Result<u32, i32> {
         rlim_max: 0,
     };
 
-    if unsafe {
-        getrlimit(
-            RLIMIT_NOFILE,
-            &mut limit,
-        )
-    } != 0
-    {
+    // SAFETY: `limit` is a valid, writable `#[repr(C)]` buffer matching the
+    // 64-bit Linux/Android `struct rlimit` ABI used by supported targets.
+    if unsafe { getrlimit(RLIMIT_NOFILE, &mut limit) } != 0 {
         return Err(last_errno());
     }
 
@@ -342,8 +401,7 @@ fn capture_fd_limit() -> Result<u32, i32> {
 /// The caller MUST be the Android isolated service process, never the normal
 /// application process.
 pub fn start() -> Result<i32, i32> {
-    let mut state =
-        STATE.lock().map_err(|_| EIO)?;
+    let mut state = STATE.lock().map_err(|_| EIO)?;
 
     if state.running() {
         return Err(EBUSY);
@@ -351,28 +409,29 @@ pub fn start() -> Result<i32, i32> {
 
     let max_fd = capture_fd_limit()?;
 
+    #[cfg(not(target_arch = "aarch64"))]
+    let _ = max_fd;
+
     let mut pair = [-1_i32; 2];
 
-    if unsafe {
-        socketpair(
-            AF_UNIX,
-            SOCK_SEQPACKET | SOCK_CLOEXEC,
-            0,
-            pair.as_mut_ptr(),
-        )
-    } != 0
-    {
+    // SAFETY: `pair` points to storage for exactly two `i32` descriptors as
+    // required by `socketpair`. Constants select an AF_UNIX SOCK_SEQPACKET pair.
+    if unsafe { socketpair(AF_UNIX, SOCK_SEQPACKET | SOCK_CLOEXEC, 0, pair.as_mut_ptr()) } != 0 {
         return Err(last_errno());
     }
 
     let parent_fd = pair[0];
     let child_fd = pair[1];
 
+    // SAFETY: `fork` has no pointer arguments. The child branch below follows
+    // the module's post-fork discipline and does not return to high-level code.
     let child_pid = unsafe { fork() };
 
     if child_pid < 0 {
         let errno = last_errno();
 
+        // SAFETY: both descriptors were returned by the successful
+        // `socketpair` call above and are still owned by this process.
         unsafe {
             let _ = close(parent_fd);
             let _ = close(child_fd);
@@ -387,20 +446,23 @@ pub fn start() -> Result<i32, i32> {
          * after this branch.
          */
         #[cfg(target_arch = "aarch64")]
+        // SAFETY: this is the freshly forked child. `child_main` receives the
+        // two socketpair descriptors and the pre-fork FD ceiling, then never
+        // returns to the Rust/ART parent runtime.
         unsafe {
-            child_main(
-                parent_fd,
-                child_fd,
-                max_fd,
-            );
+            child_main(parent_fd, child_fd, max_fd);
         }
 
         #[cfg(not(target_arch = "aarch64"))]
+        // SAFETY: the non-AArch64 child is unsupported and must terminate
+        // immediately without running destructors or high-level runtime code.
         unsafe {
             _exit(119);
         }
     }
 
+    // SAFETY: only the parent reaches this point; its copy of `child_fd` came
+    // from `socketpair` and is intentionally closed so only `parent_fd` remains.
     unsafe {
         let _ = close(child_fd);
     }
@@ -408,13 +470,7 @@ pub fn start() -> Result<i32, i32> {
     state.pid = child_pid;
     state.control_fd = parent_fd;
 
-    if let Err(errno) =
-        parent_recv(
-            parent_fd,
-            RESP_READY,
-            STARTUP_TIMEOUT_MS,
-        )
-    {
+    if let Err(errno) = parent_recv(parent_fd, RESP_READY, STARTUP_TIMEOUT_MS) {
         parent_force_terminate(&mut state);
         return Err(errno);
     }
@@ -424,26 +480,16 @@ pub fn start() -> Result<i32, i32> {
 
 /// Sends PING to the already-running child.
 pub fn ping() -> Result<i32, i32> {
-    request_response(
-        OP_PING,
-        RESP_PONG,
-    )
+    request_response(OP_PING, RESP_PONG)
 }
 
 /// Confirms that the child is alive behind its locked-down boundary.
 pub fn status() -> Result<i32, i32> {
-    request_response(
-        OP_STATUS,
-        RESP_LOCKED,
-    )
+    request_response(OP_STATUS, RESP_LOCKED)
 }
 
-fn request_response(
-    request_opcode: u8,
-    response_opcode: u8,
-) -> Result<i32, i32> {
-    let mut state =
-        STATE.lock().map_err(|_| EIO)?;
+fn request_response(request_opcode: u8, response_opcode: u8) -> Result<i32, i32> {
+    let mut state = STATE.lock().map_err(|_| EIO)?;
 
     if !state.running() {
         return Err(ENOENT);
@@ -452,23 +498,12 @@ fn request_response(
     let pid = state.pid;
     let fd = state.control_fd;
 
-    if let Err(errno) =
-        parent_send(
-            fd,
-            request_opcode,
-        )
-    {
+    if let Err(errno) = parent_send(fd, request_opcode) {
         parent_force_terminate(&mut state);
         return Err(errno);
     }
 
-    if let Err(errno) =
-        parent_recv(
-            fd,
-            response_opcode,
-            STARTUP_TIMEOUT_MS,
-        )
-    {
+    if let Err(errno) = parent_recv(fd, response_opcode, STARTUP_TIMEOUT_MS) {
         parent_force_terminate(&mut state);
         return Err(errno);
     }
@@ -478,8 +513,7 @@ fn request_response(
 
 /// Requests a clean shutdown and reaps the child.
 pub fn shutdown() -> Result<(), i32> {
-    let mut state =
-        STATE.lock().map_err(|_| EIO)?;
+    let mut state = STATE.lock().map_err(|_| EIO)?;
 
     if !state.running() {
         return Err(ENOENT);
@@ -488,23 +522,12 @@ pub fn shutdown() -> Result<(), i32> {
     let pid = state.pid;
     let fd = state.control_fd;
 
-    if let Err(errno) =
-        parent_send(
-            fd,
-            OP_SHUTDOWN,
-        )
-    {
+    if let Err(errno) = parent_send(fd, OP_SHUTDOWN) {
         parent_force_terminate(&mut state);
         return Err(errno);
     }
 
-    if let Err(errno) =
-        parent_recv(
-            fd,
-            RESP_BYE,
-            STARTUP_TIMEOUT_MS,
-        )
-    {
+    if let Err(errno) = parent_recv(fd, RESP_BYE, STARTUP_TIMEOUT_MS) {
         parent_force_terminate(&mut state);
         return Err(errno);
     }
@@ -512,27 +535,23 @@ pub fn shutdown() -> Result<(), i32> {
     state.pid = 0;
     state.control_fd = -1;
 
+    // SAFETY: `fd` is the live control descriptor taken from executor state
+    // and state ownership is cleared immediately before this close.
     unsafe {
         let _ = close(fd);
     }
 
     let mut wait_status = 0_i32;
 
-    let waited = unsafe {
-        waitpid(
-            pid,
-            &mut wait_status,
-            0,
-        )
-    };
+    // SAFETY: `pid` is the recorded child PID and `wait_status` is a valid
+    // writable `i32` for the Linux wait status returned by `waitpid`.
+    let waited = unsafe { waitpid(pid, &mut wait_status, 0) };
 
     if waited < 0 {
         return Err(last_errno());
     }
 
-    if wait_if_exited(wait_status)
-        && wait_exit_status(wait_status) == 0
-    {
+    if wait_if_exited(wait_status) && wait_exit_status(wait_status) == 0 {
         Ok(())
     } else {
         Err(EIO)
@@ -566,10 +585,7 @@ unsafe fn svc0(number: i64) -> i64 {
 
 #[cfg(target_arch = "aarch64")]
 #[inline(always)]
-unsafe fn svc1(
-    number: i64,
-    arg0: i64,
-) -> i64 {
+unsafe fn svc1(number: i64, arg0: i64) -> i64 {
     let result: i64;
 
     unsafe {
@@ -586,12 +602,7 @@ unsafe fn svc1(
 
 #[cfg(target_arch = "aarch64")]
 #[inline(always)]
-unsafe fn svc3(
-    number: i64,
-    arg0: i64,
-    arg1: i64,
-    arg2: i64,
-) -> i64 {
+unsafe fn svc3(number: i64, arg0: i64, arg1: i64, arg2: i64) -> i64 {
     let result: i64;
 
     unsafe {
@@ -610,13 +621,7 @@ unsafe fn svc3(
 
 #[cfg(target_arch = "aarch64")]
 #[inline(always)]
-unsafe fn svc4(
-    number: i64,
-    arg0: i64,
-    arg1: i64,
-    arg2: i64,
-    arg3: i64,
-) -> i64 {
+unsafe fn svc4(number: i64, arg0: i64, arg1: i64, arg2: i64, arg3: i64) -> i64 {
     let result: i64;
 
     unsafe {
@@ -636,14 +641,7 @@ unsafe fn svc4(
 
 #[cfg(target_arch = "aarch64")]
 #[inline(always)]
-unsafe fn svc5(
-    number: i64,
-    arg0: i64,
-    arg1: i64,
-    arg2: i64,
-    arg3: i64,
-    arg4: i64,
-) -> i64 {
+unsafe fn svc5(number: i64, arg0: i64, arg1: i64, arg2: i64, arg3: i64, arg4: i64) -> i64 {
     let result: i64;
 
     unsafe {
@@ -695,25 +693,16 @@ unsafe fn svc6(
 #[cfg(target_arch = "aarch64")]
 unsafe fn child_close(fd: i32) {
     unsafe {
-        let _ = svc1(
-            nr::CLOSE,
-            fd as i64,
-        );
+        let _ = svc1(nr::CLOSE, fd as i64);
     }
 }
 
 #[cfg(target_arch = "aarch64")]
 unsafe fn child_exit_now(code: i32) -> ! {
     unsafe {
-        let _ = svc1(
-            nr::EXIT_GROUP,
-            code.clamp(0, 255) as i64,
-        );
+        let _ = svc1(nr::EXIT_GROUP, code.clamp(0, 255) as i64);
 
-        let _ = svc1(
-            nr::EXIT,
-            code.clamp(0, 255) as i64,
-        );
+        let _ = svc1(nr::EXIT, code.clamp(0, 255) as i64);
     }
 
     loop {
@@ -722,20 +711,12 @@ unsafe fn child_exit_now(code: i32) -> ! {
 }
 
 #[cfg(target_arch = "aarch64")]
-unsafe fn child_normalize_control_fd(
-    parent_fd: i32,
-    child_fd: i32,
-) -> bool {
+unsafe fn child_normalize_control_fd(parent_fd: i32, child_fd: i32) -> bool {
     unsafe {
         child_close(parent_fd);
 
         if child_fd != CONTROL_FD {
-            let duplicated = svc3(
-                nr::DUP3,
-                child_fd as i64,
-                CONTROL_FD as i64,
-                0,
-            );
+            let duplicated = svc3(nr::DUP3, child_fd as i64, CONTROL_FD as i64, 0);
 
             if duplicated != CONTROL_FD as i64 {
                 return false;
@@ -753,21 +734,12 @@ unsafe fn child_normalize_control_fd(
 }
 
 #[cfg(target_arch = "aarch64")]
-unsafe fn child_scrub_fds(
-    max_fd: u32,
-) -> bool {
+unsafe fn child_scrub_fds(max_fd: u32) -> bool {
     /*
      * Prefer close_range(4, UINT_MAX, 0). If Android's inherited policy or an
      * older kernel rejects it, fail over to explicit close().
      */
-    let close_range_result = unsafe {
-        svc3(
-            nr::CLOSE_RANGE,
-            4,
-            u32::MAX as i64,
-            0,
-        )
-    };
+    let close_range_result = unsafe { svc3(nr::CLOSE_RANGE, 4, u32::MAX as i64, 0) };
 
     if close_range_result == 0 {
         return true;
@@ -816,16 +788,7 @@ unsafe fn child_block_catchable_signals() -> bool {
 
 #[cfg(target_arch = "aarch64")]
 unsafe fn child_set_pdeathsig() -> bool {
-    let result = unsafe {
-        svc5(
-            nr::PRCTL,
-            PR_SET_PDEATHSIG,
-            SIGKILL as i64,
-            0,
-            0,
-            0,
-        )
-    };
+    let result = unsafe { svc5(nr::PRCTL, PR_SET_PDEATHSIG, SIGKILL as i64, 0, 0, 0) };
 
     if result != 0 {
         return false;
@@ -835,40 +798,20 @@ unsafe fn child_set_pdeathsig() -> bool {
      * Race check if getppid is available. The inherited old PoC filter may
      * return -EPERM for getppid; that is acceptable for this temporary stage.
      */
-    let ppid = unsafe {
-        svc0(nr::GETPPID)
-    };
+    let ppid = unsafe { svc0(nr::GETPPID) };
 
     ppid != 1
 }
 
 #[cfg(target_arch = "aarch64")]
 unsafe fn child_enable_nnp() -> bool {
-    let set_result = unsafe {
-        svc5(
-            nr::PRCTL,
-            PR_SET_NO_NEW_PRIVS,
-            1,
-            0,
-            0,
-            0,
-        )
-    };
+    let set_result = unsafe { svc5(nr::PRCTL, PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) };
 
     if set_result != 0 {
         return false;
     }
 
-    let get_result = unsafe {
-        svc5(
-            nr::PRCTL,
-            PR_GET_NO_NEW_PRIVS,
-            0,
-            0,
-            0,
-            0,
-        )
-    };
+    let get_result = unsafe { svc5(nr::PRCTL, PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0) };
 
     get_result == 1
 }
@@ -1020,14 +963,11 @@ unsafe fn child_install_strict_seccomp() -> bool {
 
 #[cfg(target_arch = "aarch64")]
 unsafe fn child_verify_boundary() -> bool {
-    let allowed_getpid =
-        unsafe { svc0(nr::GETPID) };
+    let allowed_getpid = unsafe { svc0(nr::GETPID) };
 
-    let blocked_getuid =
-        unsafe { svc0(nr::GETUID) };
+    let blocked_getuid = unsafe { svc0(nr::GETUID) };
 
-    allowed_getpid > 0
-        && blocked_getuid == -(EPERM as i64)
+    allowed_getpid > 0 && blocked_getuid == -(EPERM as i64)
 }
 
 #[cfg(target_arch = "aarch64")]
@@ -1050,9 +990,7 @@ unsafe fn child_send(opcode: u8) -> bool {
 }
 
 #[cfg(target_arch = "aarch64")]
-unsafe fn child_recv(
-    bytes: &mut [u8; PACKET_LEN],
-) -> i64 {
+unsafe fn child_recv(bytes: &mut [u8; PACKET_LEN]) -> i64 {
     unsafe {
         svc6(
             nr::RECVFROM,
@@ -1067,70 +1005,43 @@ unsafe fn child_recv(
 }
 
 #[cfg(target_arch = "aarch64")]
-unsafe fn child_main(
-    parent_fd: i32,
-    child_fd: i32,
-    max_fd: u32,
-) -> ! {
-    if !unsafe {
-        child_normalize_control_fd(
-            parent_fd,
-            child_fd,
-        )
-    } {
+unsafe fn child_main(parent_fd: i32, child_fd: i32, max_fd: u32) -> ! {
+    if !unsafe { child_normalize_control_fd(parent_fd, child_fd) } {
         unsafe { child_exit_now(101) };
     }
 
-    if !unsafe {
-        child_scrub_fds(max_fd)
-    } {
+    if !unsafe { child_scrub_fds(max_fd) } {
         unsafe { child_exit_now(102) };
     }
 
-    if !unsafe {
-        child_block_catchable_signals()
-    } {
+    if !unsafe { child_block_catchable_signals() } {
         unsafe { child_exit_now(103) };
     }
 
-    if !unsafe {
-        child_set_pdeathsig()
-    } {
+    if !unsafe { child_set_pdeathsig() } {
         unsafe { child_exit_now(104) };
     }
 
-    if !unsafe {
-        child_enable_nnp()
-    } {
+    if !unsafe { child_enable_nnp() } {
         unsafe { child_exit_now(105) };
     }
 
-    if !unsafe {
-        child_install_strict_seccomp()
-    } {
+    if !unsafe { child_install_strict_seccomp() } {
         unsafe { child_exit_now(106) };
     }
 
-    if !unsafe {
-        child_verify_boundary()
-    } {
+    if !unsafe { child_verify_boundary() } {
         unsafe { child_exit_now(107) };
     }
 
-    if !unsafe {
-        child_send(RESP_READY)
-    } {
+    if !unsafe { child_send(RESP_READY) } {
         unsafe { child_exit_now(108) };
     }
 
     loop {
-        let mut bytes =
-            [0_u8; PACKET_LEN];
+        let mut bytes = [0_u8; PACKET_LEN];
 
-        let received =
-            unsafe {
-                child_recv(&mut bytes)
-            };
+        let received = unsafe { child_recv(&mut bytes) };
 
         if received <= 0 {
             unsafe {
@@ -1139,9 +1050,7 @@ unsafe fn child_main(
         }
 
         if received as usize != PACKET_LEN {
-            if !unsafe {
-                child_send(RESP_ERROR)
-            } {
+            if !unsafe { child_send(RESP_ERROR) } {
                 unsafe {
                     child_exit_now(110);
                 }
@@ -1150,14 +1059,11 @@ unsafe fn child_main(
             continue;
         }
 
-        let opcode =
-            packet_opcode(&bytes);
+        let opcode = packet_opcode(&bytes);
 
         match opcode {
             Some(OP_PING) => {
-                if !unsafe {
-                    child_send(RESP_PONG)
-                } {
+                if !unsafe { child_send(RESP_PONG) } {
                     unsafe {
                         child_exit_now(111);
                     }
@@ -1165,9 +1071,7 @@ unsafe fn child_main(
             }
 
             Some(OP_STATUS) => {
-                if !unsafe {
-                    child_send(RESP_LOCKED)
-                } {
+                if !unsafe { child_send(RESP_LOCKED) } {
                     unsafe {
                         child_exit_now(112);
                     }
@@ -1175,10 +1079,7 @@ unsafe fn child_main(
             }
 
             Some(OP_SHUTDOWN) => {
-                let _ =
-                    unsafe {
-                        child_send(RESP_BYE)
-                    };
+                let _ = unsafe { child_send(RESP_BYE) };
 
                 unsafe {
                     child_close(CONTROL_FD);
@@ -1187,9 +1088,7 @@ unsafe fn child_main(
             }
 
             _ => {
-                if !unsafe {
-                    child_send(RESP_ERROR)
-                } {
+                if !unsafe { child_send(RESP_ERROR) } {
                     unsafe {
                         child_exit_now(113);
                     }
@@ -1205,42 +1104,22 @@ mod tests {
 
     #[test]
     fn packet_shape_is_stable() {
-        assert_eq!(
-            packet(OP_PING),
-            [
-                b'S',
-                b'G',
-                1,
-                OP_PING,
-                0,
-                0,
-                0,
-                0,
-            ],
-        );
+        assert_eq!(packet(OP_PING), [b'S', b'G', 1, OP_PING, 0, 0, 0, 0,],);
     }
 
     #[test]
     fn malformed_packet_is_rejected() {
-        let mut malformed =
-            packet(OP_STATUS);
+        let mut malformed = packet(OP_STATUS);
 
         malformed[7] = 1;
 
-        assert_eq!(
-            packet_opcode(&malformed),
-            None,
-        );
+        assert_eq!(packet_opcode(&malformed), None,);
     }
 
     #[test]
     fn valid_packet_returns_opcode() {
-        let bytes =
-            packet(OP_SHUTDOWN);
+        let bytes = packet(OP_SHUTDOWN);
 
-        assert_eq!(
-            packet_opcode(&bytes),
-            Some(OP_SHUTDOWN),
-        );
+        assert_eq!(packet_opcode(&bytes), Some(OP_SHUTDOWN),);
     }
 }
