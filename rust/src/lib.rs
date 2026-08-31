@@ -1,6 +1,7 @@
 mod duress;
 mod guest;
 mod image;
+mod ipc_protocol;
 mod persistent_executor;
 
 use jni::JNIEnv;
@@ -419,12 +420,12 @@ fn direct_svc_report() -> String {
         );
     }
 
-    return format!(
+    format!(
         "DIRECT_SVC_TEST: FAILED\n\
          getpid via svc #0: {direct_getpid}\n\
          getppid via svc #0: {direct_getppid}\n\
          expected getppid: {expected_block} (-EPERM)"
-    );
+    )
 }
 
 #[cfg(not(target_arch = "aarch64"))]

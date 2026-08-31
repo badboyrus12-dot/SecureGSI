@@ -1,0 +1,2375 @@
+========================================
+SecureGSI strict sweep v6 / 2026-08-31
+ROOT=/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI
+RUST_DIR=/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust
+DENY_CONFIG=/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/deny.toml
+========================================
+
+========== cargo fmt ==========
+>>> PASS
+
+========== cargo fmt fuzz harness ==========
+>>> PASS
+
+========== cargo check host ==========
+   Compiling proc-macro2 v1.0.107
+   Compiling version_check v0.9.5
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+    Checking typenum v1.20.1
+    Checking cfg-if v1.0.4
+   Compiling libc v0.2.189
+    Checking subtle v2.6.1
+   Compiling jni-sys v0.3.1
+   Compiling thiserror v1.0.69
+    Checking bytes v1.12.1
+    Checking memchr v2.8.3
+    Checking base64ct v1.8.3
+    Checking cpufeatures v0.2.17
+    Checking log v0.4.33
+    Checking cesu8 v1.1.0
+    Checking zeroize v1.9.0
+    Checking combine v4.6.7
+   Compiling generic-array v0.14.7
+    Checking crypto-common v0.1.7
+    Checking block-buffer v0.10.4
+   Compiling syn v2.0.119
+    Checking digest v0.10.7
+    Checking getrandom v0.2.17
+    Checking blake2 v0.10.6
+    Checking sha2 v0.10.9
+    Checking rand_core v0.6.4
+    Checking password-hash v0.5.0
+    Checking argon2 v0.5.3
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+    Checking jni-sys v0.4.1
+    Checking jni v0.21.1
+    Checking rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.89s
+>>> PASS
+
+========== cargo clippy strict host ==========
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling libc v0.2.189
+   Compiling thiserror v1.0.69
+   Compiling jni-sys v0.3.1
+   Compiling generic-array v0.14.7
+    Checking block-buffer v0.10.4
+    Checking crypto-common v0.1.7
+    Checking digest v0.10.7
+   Compiling syn v2.0.119
+    Checking blake2 v0.10.6
+    Checking getrandom v0.2.17
+    Checking sha2 v0.10.9
+    Checking rand_core v0.6.4
+    Checking password-hash v0.5.0
+    Checking argon2 v0.5.3
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+    Checking jni-sys v0.4.1
+    Checking jni v0.21.1
+    Checking rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.91s
+>>> PASS
+
+========== cargo clippy strict Android ARM64 production ==========
+   Compiling proc-macro2 v1.0.107
+   Compiling version_check v0.9.5
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling libc v0.2.189
+   Compiling thiserror v1.0.69
+   Compiling jni-sys v0.3.1
+   Compiling generic-array v0.14.7
+   Compiling syn v2.0.119
+    Checking getrandom v0.2.17
+    Checking cpufeatures v0.2.17
+    Checking crypto-common v0.1.7
+    Checking block-buffer v0.10.4
+    Checking rand_core v0.6.4
+    Checking digest v0.10.7
+    Checking password-hash v0.5.0
+    Checking blake2 v0.10.6
+    Checking sha2 v0.10.9
+    Checking argon2 v0.5.3
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+    Checking jni-sys v0.4.1
+    Checking jni v0.21.1
+    Checking rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.26s
+>>> PASS
+
+========== cargo test ==========
+   Compiling typenum v1.20.1
+   Compiling cfg-if v1.0.4
+   Compiling subtle v2.6.1
+   Compiling memchr v2.8.3
+   Compiling bytes v1.12.1
+   Compiling cpufeatures v0.2.17
+   Compiling base64ct v1.8.3
+   Compiling cesu8 v1.1.0
+   Compiling log v0.4.33
+   Compiling zeroize v1.9.0
+   Compiling libc v0.2.189
+   Compiling jni-sys v0.4.1
+   Compiling thiserror v1.0.69
+   Compiling jni-sys v0.3.1
+   Compiling combine v4.6.7
+   Compiling generic-array v0.14.7
+   Compiling getrandom v0.2.17
+   Compiling rand_core v0.6.4
+   Compiling password-hash v0.5.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling blake2 v0.10.6
+   Compiling sha2 v0.10.9
+   Compiling argon2 v0.5.3
+   Compiling jni v0.21.1
+   Compiling rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.81s
+     Running unittests src/lib.rs (target/debug/deps/rust-6654bfc989a36d4d)
+
+running 27 tests
+test image::tests::zero_header_length_is_valid ... ok
+test ipc_protocol::tests::bad_magic_is_rejected ... ok
+test image::tests::zero_header_length_reads_nothing ... ok
+test ipc_protocol::tests::invalid_kind_is_rejected ... ok
+test ipc_protocol::tests::nonzero_flags_are_rejected ... ok
+test ipc_protocol::tests::payload_is_rejected_in_v1 ... ok
+test ipc_protocol::tests::ready_requires_zero_request_id ... ok
+test ipc_protocol::tests::request_requires_nonzero_request_id ... ok
+test ipc_protocol::tests::request_round_trip ... ok
+test ipc_protocol::tests::reserved_bytes_are_rejected ... ok
+test ipc_protocol::tests::response_opcode_cannot_be_used_as_request ... ok
+test ipc_protocol::tests::response_round_trip ... ok
+test ipc_protocol::tests::unknown_opcode_is_rejected ... ok
+test ipc_protocol::tests::unsupported_version_is_rejected ... ok
+test ipc_protocol::tests::wrong_packet_length_is_rejected ... ok
+test persistent_executor::tests::malformed_packet_is_rejected ... ok
+test persistent_executor::tests::mismatched_response_request_id_is_rejected_by_protocol_state ... ok
+test persistent_executor::tests::packet_shape_is_stable ... ok
+test persistent_executor::tests::request_id_wrap_skips_zero ... ok
+test persistent_executor::tests::valid_packet_returns_opcode ... ok
+test tests::rust_ready_works ... ok
+test tests::wait_status_helpers_work ... ok
+test image::tests::sha256_reader_works ... ok
+test tests::sha256_works ... ok
+test duress::tests::oversized_verifier_is_rejected ... ok
+test duress::tests::instance_symlink_is_unlinked_not_followed ... ok
+test duress::tests::configure_match_and_wipe ... ok
+
+test result: ok. 27 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.88s
+
+>>> PASS
+
+========== cargo nextest ==========
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.35s
+────────────
+ Nextest run ID 0aae2279-6a30-452d-b31d-6e124568d850 with nextest profile: default
+    Starting 27 tests across 1 binary
+        PASS [   0.033s] ( 1/27) rust ipc_protocol::tests::response_round_trip
+        PASS [   0.033s] ( 2/27) rust ipc_protocol::tests::unsupported_version_is_rejected
+        PASS [   0.032s] ( 3/27) rust ipc_protocol::tests::ready_requires_zero_request_id
+        PASS [   0.032s] ( 4/27) rust persistent_executor::tests::mismatched_response_request_id_is_rejected_by_protocol_state
+        PASS [   0.033s] ( 5/27) rust image::tests::zero_header_length_reads_nothing
+        PASS [   0.032s] ( 6/27) rust ipc_protocol::tests::payload_is_rejected_in_v1
+        PASS [   0.033s] ( 7/27) rust ipc_protocol::tests::unknown_opcode_is_rejected
+        PASS [   0.033s] ( 8/27) rust ipc_protocol::tests::wrong_packet_length_is_rejected
+        PASS [   0.032s] ( 9/27) rust ipc_protocol::tests::request_round_trip
+        PASS [   0.034s] (10/27) rust image::tests::zero_header_length_is_valid
+        PASS [   0.032s] (11/27) rust persistent_executor::tests::valid_packet_returns_opcode
+        PASS [   0.032s] (12/27) rust ipc_protocol::tests::response_opcode_cannot_be_used_as_request
+        PASS [   0.033s] (13/27) rust ipc_protocol::tests::bad_magic_is_rejected
+        PASS [   0.032s] (14/27) rust ipc_protocol::tests::invalid_kind_is_rejected
+        PASS [   0.032s] (15/27) rust ipc_protocol::tests::reserved_bytes_are_rejected
+        PASS [   0.033s] (16/27) rust persistent_executor::tests::request_id_wrap_skips_zero
+        PASS [   0.033s] (17/27) rust ipc_protocol::tests::request_requires_nonzero_request_id
+        PASS [   0.033s] (18/27) rust ipc_protocol::tests::nonzero_flags_are_rejected
+        PASS [   0.033s] (19/27) rust persistent_executor::tests::malformed_packet_is_rejected
+        PASS [   0.032s] (20/27) rust persistent_executor::tests::packet_shape_is_stable
+        PASS [   0.035s] (21/27) rust image::tests::sha256_reader_works
+        PASS [   0.007s] (22/27) rust tests::rust_ready_works
+        PASS [   0.008s] (23/27) rust tests::sha256_works
+        PASS [   0.008s] (24/27) rust tests::wait_status_helpers_work
+        PASS [   0.049s] (25/27) rust duress::tests::oversized_verifier_is_rejected
+        PASS [   0.055s] (26/27) rust duress::tests::instance_symlink_is_unlinked_not_followed
+        PASS [   0.919s] (27/27) rust duress::tests::configure_match_and_wipe
+────────────
+     Summary [   0.919s] 27 tests run: 27 passed, 0 skipped
+>>> PASS
+
+========== Android ARM64 release build ==========
+   Compiling rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `release` profile [optimized] target(s) in 1.22s
+>>> PASS
+
+========== cargo audit / RustSec ==========
+    Fetching advisory database from `https://github.com/RustSec/advisory-db.git`
+      Loaded 1229 security advisories (from /home/user/.cargo/advisory-db)
+    Updating crates.io index
+    Scanning Cargo.lock for vulnerabilities (49 crate dependencies)
+>>> PASS
+
+========== cargo deny ==========
+advisories ok, bans ok, licenses ok, sources ok
+>>> PASS
+
+========== Miri fast Rust safety test ==========
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.65s
+     Running unittests src/lib.rs (target/miri/x86_64-unknown-linux-gnu/debug/build/rust/f6b6ed3528325242/out/rust-f6b6ed3528325242)
+
+running 1 test
+test tests::wait_status_helpers_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 26 filtered out; finished in 0.16s
+
+>>> PASS
+
+========== cargo geiger unsafe inventory (REPORT ONLY) ==========
+     Removed 910 files, 350.7MiB total
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling version_check v0.9.5
+   Compiling quote v1.0.47
+    Checking typenum v1.20.1
+    Checking cfg-if v1.0.4
+   Compiling libc v0.2.189
+    Checking subtle v2.6.1
+   Compiling jni-sys v0.3.1
+   Compiling thiserror v1.0.69
+    Checking memchr v2.8.3
+    Checking bytes v1.12.1
+    Checking cpufeatures v0.2.17
+    Checking base64ct v1.8.3
+    Checking cesu8 v1.1.0
+    Checking log v0.4.33
+    Checking zeroize v1.9.0
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/cpufeatures-61d389a9f523e928.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/cfg_if-8e014ddcb785b96d.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/cesu8-2f6e4c5800e20026.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/quote-6dff9724e4e81362/build_script_build-6dff9724e4e81362.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/proc-macro2-7d0ed4e509752a35/build_script_build-7d0ed4e509752a35.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/libc-19124a20af635abc/build_script_build-19124a20af635abc.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/subtle-684c7bd4fb8861f7.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/thiserror-c38a878e108bbc23/build_script_build-c38a878e108bbc23.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/unicode_ident-8443eb632a3fbe4c.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/base64ct-4a459f00d0d99064.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcpufeatures-61d389a9f523e928.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcfg_if-8e014ddcb785b96d.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/jni-sys-43c1c552b495f510/build_script_build-43c1c552b495f510.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/bytes-c3394b0af77a15c5.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/version_check-48d66f356588878b.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/log-3abd3f2106062399.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/zeroize-e674f08f435e3187.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libunicode_ident-8443eb632a3fbe4c.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/memchr-0263503a7d6f4437.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcesu8-2f6e4c5800e20026.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libsubtle-684c7bd4fb8861f7.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/liblog-3abd3f2106062399.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/typenum-0bb98beaf5b40e6d.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libzeroize-e674f08f435e3187.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libversion_check-48d66f356588878b.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libunicode_ident-8443eb632a3fbe4c.rlib","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libbase64ct-4a459f00d0d99064.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libversion_check-48d66f356588878b.rlib","emit":"link"}
+   Compiling generic-array v0.14.7
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libmemchr-0263503a7d6f4437.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libbytes-c3394b0af77a15c5.rmeta","emit":"metadata"}
+    Checking combine v4.6.7
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/generic-array-c471f65fcb0548d3/build_script_build-c471f65fcb0548d3.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libtypenum-0bb98beaf5b40e6d.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/combine-54fe0278b298735f.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/jni-sys-43c1c552b495f510/build_script_build-43c1c552b495f510","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/quote-6dff9724e4e81362/build_script_build-6dff9724e4e81362","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/proc-macro2-7d0ed4e509752a35/build_script_build-7d0ed4e509752a35","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/thiserror-c38a878e108bbc23/build_script_build-c38a878e108bbc23","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/libc-19124a20af635abc/build_script_build-19124a20af635abc","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/build/generic-array-c471f65fcb0548d3/build_script_build-c471f65fcb0548d3","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/proc_macro2-cb79944ef996a02b.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/generic_array-79f6a63db51bd373.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libc-4b3943b2fd1e2eec.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libproc_macro2-cb79944ef996a02b.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libproc_macro2-cb79944ef996a02b.rlib","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libgeneric_array-79f6a63db51bd373.rmeta","emit":"metadata"}
+    Checking crypto-common v0.1.7
+    Checking block-buffer v0.10.4
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/quote-9a408a5f97606779.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/crypto_common-ace1ae37f646d743.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/block_buffer-299732a4e3048fcf.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcrypto_common-ace1ae37f646d743.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libblock_buffer-299732a4e3048fcf.rmeta","emit":"metadata"}
+    Checking digest v0.10.7
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libquote-9a408a5f97606779.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/liblibc-4b3943b2fd1e2eec.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/digest-9149a8b01a242973.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libquote-9a408a5f97606779.rlib","emit":"link"}
+    Checking getrandom v0.2.17
+   Compiling syn v2.0.119
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libdigest-9149a8b01a242973.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/getrandom-c0d114d3ab54df67.d","emit":"dep-info"}
+    Checking blake2 v0.10.6
+    Checking sha2 v0.10.9
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libgetrandom-c0d114d3ab54df67.rmeta","emit":"metadata"}
+    Checking rand_core v0.6.4
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/blake2-bf3e4a5c9bf070db.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/sha2-bd0c228d36c0e69b.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/rand_core-360293c148d12270.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/syn-7a6bc41ff4575ae9.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/librand_core-360293c148d12270.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libblake2-bf3e4a5c9bf070db.rmeta","emit":"metadata"}
+    Checking password-hash v0.5.0
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libsha2-bd0c228d36c0e69b.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/password_hash-53ebbc33529446c9.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libpassword_hash-53ebbc33529446c9.rmeta","emit":"metadata"}
+    Checking argon2 v0.5.3
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/argon2-48fabf2833cc4bc9.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libargon2-48fabf2833cc4bc9.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libcombine-54fe0278b298735f.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libsyn-7a6bc41ff4575ae9.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libsyn-7a6bc41ff4575ae9.rlib","emit":"link"}
+   Compiling jni-sys-macros v0.4.1
+   Compiling thiserror-impl v1.0.69
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/jni_sys_macros-b35b93d45dbc340e.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/thiserror_impl-ea1373f41f8727df.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libjni_sys_macros-b35b93d45dbc340e.so","emit":"link"}
+    Checking jni-sys v0.4.1
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libthiserror_impl-ea1373f41f8727df.so","emit":"link"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/jni_sys-230f8adbdc4b8cb7.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/thiserror-19391372f5f3e96a.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libthiserror-19391372f5f3e96a.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libjni_sys-230f8adbdc4b8cb7.rmeta","emit":"metadata"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/jni_sys-5acbccb32a521f32.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libjni_sys-5acbccb32a521f32.rmeta","emit":"metadata"}
+    Checking jni v0.21.1
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/jni-250d5519859cc889.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/libjni-250d5519859cc889.rmeta","emit":"metadata"}
+    Checking rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/rust-dcd603cfd426f027.d","emit":"dep-info"}
+{"$message_type":"artifact","artifact":"/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/debug/deps/librust-dcd603cfd426f027.rmeta","emit":"metadata"}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 13.57s
+    Scanning done
+WARNING: Dependency file was never scanned: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/zeroize-1.9.0/README.md
+WARNING: Dependency file was never scanned: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/argon2-0.5.3/README.md
+WARNING: Dependency file was never scanned: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/password-hash-0.5.0/README.md
+WARNING: Dependency file was never scanned: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/base64ct-1.8.3/README.md
+
+Metric output format: x/y
+    x = unsafe code used by the build
+    y = total unsafe code found in the crate
+
+Symbols:
+    :) = No `unsafe` usage found, declares #![forbid(unsafe_code)]
+    ?  = No `unsafe` usage found, missing #![forbid(unsafe_code)]
+    !  = `unsafe` usage found
+
+Functions  Expressions  Impls  Traits  Methods  Dependency
+
+28/28      296/298      0/0    0/0     0/0      !  rust 0.1.0
+1/1        2/2          0/0    0/0     0/0      !  ├── argon2 0.5.3
+0/0        25/25        0/0    0/0     0/0      !  │   ├── base64ct 1.8.3
+0/0        12/20        13/13  1/1     0/0      !  │   ├── blake2 0.10.6
+0/0        0/0          0/0    0/0     0/0      :) │   │   └── digest 0.10.7
+0/0        16/16        0/0    0/0     0/0      !  │   │       ├── block-buffer 0.10.4
+1/1        285/285      20/20  8/8     5/5      !  │   │       │   └── generic-array 0.14.7
+0/0        0/0          0/0    0/0     0/0      :) │   │       │       ├── typenum 1.20.1
+2/2        27/37        0/1    0/0     0/2      !  │   │       │       └── zeroize 1.9.0
+0/0        0/0          0/0    0/0     0/0      :) │   │       ├── crypto-common 0.1.7
+1/1        285/285      20/20  8/8     5/5      !  │   │       │   ├── generic-array 0.14.7
+0/0        2/2          0/0    0/0     0/0      !  │   │       │   ├── rand_core 0.6.4
+3/6        67/192       1/1    0/0     3/3      !  │   │       │   │   └── getrandom 0.2.17
+0/0        0/0          0/0    0/0     0/0      ?  │   │       │   │       ├── cfg-if 1.0.4
+0/93       35/738       2/10   0/0     8/101    !  │   │       │   │       └── libc 0.2.189
+0/0        0/0          0/0    0/0     0/0      :) │   │       │   └── typenum 1.20.1
+0/0        8/8          0/0    0/0     0/0      !  │   │       └── subtle 2.6.1
+0/1        0/12         0/0    0/0     0/0      ?  │   ├── cpufeatures 0.2.17
+0/0        0/0          0/0    0/0     0/0      :) │   ├── password-hash 0.5.0
+0/0        25/25        0/0    0/0     0/0      !  │   │   ├── base64ct 1.8.3
+0/0        2/2          0/0    0/0     0/0      !  │   │   ├── rand_core 0.6.4
+0/0        8/8          0/0    0/0     0/0      !  │   │   └── subtle 2.6.1
+2/2        27/37        0/1    0/0     0/2      !  │   └── zeroize 1.9.0
+0/2        587/674      32/32  3/3     41/41    !  ├── jni 0.21.1
+0/0        6/6          0/0    0/0     0/0      !  │   ├── cesu8 1.1.0
+0/0        0/0          0/0    0/0     0/0      ?  │   ├── cfg-if 1.0.4
+0/0        42/43        0/0    0/0     3/3      !  │   ├── combine 4.6.7
+40/40      780/826      12/14  1/1     16/20    !  │   │   ├── bytes 1.12.1
+34/48      1992/2440    2/2    0/0     110/148  !  │   │   └── memchr 2.8.3
+2/2        18/18        1/1    0/0     0/0      !  │   │       └── log 0.4.33
+0/0        0/0          0/0    0/0     0/0      ?  │   ├── jni-sys 0.3.1
+0/0        17/17        0/0    0/0     0/0      !  │   │   └── jni-sys 0.4.1
+0/0        0/0          0/0    0/0     0/0      ?  │   │       └── jni-sys-macros 0.4.1
+0/0        0/0          0/0    0/0     0/0      ?  │   │           ├── quote 1.0.47
+0/0        14/14        0/0    0/0     3/3      !  │   │           │   └── proc-macro2 1.0.107
+0/0        4/4          0/0    0/0     0/0      !  │   │           │       └── unicode-ident 1.0.24
+0/0        87/87        3/3    0/0     2/2      !  │   │           └── syn 2.0.119
+0/0        14/14        0/0    0/0     3/3      !  │   │               ├── proc-macro2 1.0.107
+0/0        0/0          0/0    0/0     0/0      ?  │   │               ├── quote 1.0.47
+0/0        4/4          0/0    0/0     0/0      !  │   │               └── unicode-ident 1.0.24
+2/2        18/18        1/1    0/0     0/0      !  │   ├── log 0.4.33
+0/0        0/0          0/0    0/0     0/0      ?  │   └── thiserror 1.0.69
+0/0        0/0          0/0    0/0     0/0      ?  │       └── thiserror-impl 1.0.69
+0/0        14/14        0/0    0/0     3/3      !  │           ├── proc-macro2 1.0.107
+0/0        0/0          0/0    0/0     0/0      ?  │           ├── quote 1.0.47
+0/0        87/87        3/3    0/0     2/2      !  │           └── syn 2.0.119
+0/93       35/738       2/10   0/0     8/101    !  ├── libc 0.2.189
+0/0        2/2          0/0    0/0     0/0      !  ├── rand_core 0.6.4
+8/18       178/707      0/0    0/0     0/0      !  ├── sha2 0.10.9
+0/0        0/0          0/0    0/0     0/0      ?  │   ├── cfg-if 1.0.4
+0/1        0/12         0/0    0/0     0/0      ?  │   ├── cpufeatures 0.2.17
+0/0        0/0          0/0    0/0     0/0      :) │   └── digest 0.10.7
+2/2        27/37        0/1    0/0     0/2      !  └── zeroize 1.9.0
+
+119/242    4500/6471    86/97  13/13   191/328
+
+error: Found 4 warnings
+>>> report rc=1 (does not decide the security gate by itself)
+
+========== cargo llvm-cov (REPORT ONLY) ==========
+info: cargo-llvm-cov currently setting cfg(coverage); you can opt-out it by passing --no-cfg-coverage
+   Compiling rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.82s
+     Running unittests src/lib.rs (target/llvm-cov-target/debug/deps/rust-6654bfc989a36d4d)
+
+running 27 tests
+test image::tests::zero_header_length_is_valid ... ok
+test ipc_protocol::tests::bad_magic_is_rejected ... ok
+test ipc_protocol::tests::invalid_kind_is_rejected ... ok
+test ipc_protocol::tests::nonzero_flags_are_rejected ... ok
+test ipc_protocol::tests::payload_is_rejected_in_v1 ... ok
+test ipc_protocol::tests::ready_requires_zero_request_id ... ok
+test ipc_protocol::tests::request_requires_nonzero_request_id ... ok
+test ipc_protocol::tests::request_round_trip ... ok
+test ipc_protocol::tests::reserved_bytes_are_rejected ... ok
+test ipc_protocol::tests::response_opcode_cannot_be_used_as_request ... ok
+test ipc_protocol::tests::response_round_trip ... ok
+test ipc_protocol::tests::unknown_opcode_is_rejected ... ok
+test ipc_protocol::tests::unsupported_version_is_rejected ... ok
+test ipc_protocol::tests::wrong_packet_length_is_rejected ... ok
+test persistent_executor::tests::malformed_packet_is_rejected ... ok
+test persistent_executor::tests::mismatched_response_request_id_is_rejected_by_protocol_state ... ok
+test persistent_executor::tests::packet_shape_is_stable ... ok
+test persistent_executor::tests::request_id_wrap_skips_zero ... ok
+test persistent_executor::tests::valid_packet_returns_opcode ... ok
+test tests::rust_ready_works ... ok
+test tests::wait_status_helpers_work ... ok
+test image::tests::zero_header_length_reads_nothing ... ok
+test tests::sha256_works ... ok
+test image::tests::sha256_reader_works ... ok
+test duress::tests::oversized_verifier_is_rejected ... ok
+test duress::tests::instance_symlink_is_unlinked_not_followed ... ok
+test duress::tests::configure_match_and_wipe ... ok
+
+test result: ok. 27 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.97s
+
+Filename                      Regions    Missed Regions     Cover   Functions  Missed Functions  Executed       Lines      Missed Lines     Cover    Branches   Missed Branches     Cover
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+duress.rs                         371                53    85.71%          19                 1    94.74%         204                39    80.88%           0                 0         -
+guest.rs                          471               471     0.00%          27                27     0.00%         381               381     0.00%           0                 0         -
+image.rs                          102                38    62.75%          11                 4    63.64%          53                19    64.15%           0                 0         -
+ipc_protocol.rs                   267                 5    98.13%          24                 0   100.00%         178                 4    97.75%           0                 0         -
+lib.rs                            569               511    10.19%          57                48    15.79%         443               403     9.03%           0                 0         -
+persistent_executor.rs            328               250    23.78%          22                14    36.36%         239               188    21.34%           0                 0         -
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                            2108              1328    37.00%         160                94    41.25%        1498              1034    30.97%           0                 0         -
+>>> report rc=0 (does not decide the security gate by itself)
+
+========== Kani proofs ==========
+Kani Rust Verifier 0.67.0 (cargo plugin)
+   Compiling rust v0.1.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust)
+warning: this lint expectation is unfulfilled
+   --> src/ipc_protocol.rs:137:9
+    |
+137 |         dead_code,
+    |         ^^^^^^^^^
+    |
+    = note: response encoding is used by the locked AArch64 child and protocol tests
+    = note: `#[warn(unfulfilled_lint_expectations)]` on by default
+
+warning: this lint expectation is unfulfilled
+   --> src/persistent_executor.rs:219:12
+    |
+219 |     expect(dead_code, reason = "used only by the AArch64 seccomp program")
+    |            ^^^^^^^^^
+    |
+    = note: used only by the AArch64 seccomp program
+
+warning: Found the following unsupported constructs:
+             - caller_location (1)
+             - foreign function (1)
+         
+         Verification will fail if one or more of these constructs is reachable.
+         See https://model-checking.github.io/kani/rust-feature-support.html for more details.
+
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.14s
+Checking harness ipc_protocol::kani_proofs::valid_requests_round_trip...
+CBMC 6.8.0 (cbmc-6.8.0)
+CBMC version 6.8.0 (cbmc-6.8.0) 64-bit x86_64 linux
+Reading GOTO program from file /mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/kani/x86_64-unknown-linux-gnu/debug/deps/rust__RNvNtNtCs4yaC4RobyxO_4rust12ipc_protocol11kani_proofs25valid_requests_round_trip.out
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Running with 16 object bits, 48 offset bits (user-specified)
+Starting Bounded Model Checking
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs line 969 column 15 function std::option::Option::<[u8; 16]>::expect thread 0
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs line 2184 column 5 function std::option::expect_failed thread 0
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs line 971 column 21 function std::option::Option::<[u8; 16]>::expect thread 0
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs line 1338 column 15 function std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError> thread 0
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 2173 column 15 function <std::result::Result<ipc_protocol::MessageKind, ipc_protocol::ParseError> as std::ops::Try>::branch thread 0
+aborting path on assume(false) at file src/lib.rs line 0 column 0 function ipc_protocol::parse_slice thread 0
+aborting path on assume(false) at file src/ipc_protocol.rs line 85 column 11 function ipc_protocol::request_id_valid thread 0
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 1183 column 15 function std::result::Result::<ipc_protocol::Message, ipc_protocol::ParseError>::expect thread 0
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 1867 column 5 function std::result::unwrap_failed thread 0
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 1185 column 23 function std::result::Result::<ipc_protocol::Message, ipc_protocol::ParseError>::expect thread 0
+Runtime Symex: 0.0945922s
+size of program expression: 6412 steps
+slicing removed 4593 assignments
+Generated 196 VCC(s), 40 remaining after simplification
+Runtime Postprocess Equation: 0.00118107s
+Passing problem to propositional reduction
+converting SSA
+Runtime Convert SSA: 0.00514766s
+Running propositional reduction
+Post-processing
+Runtime Post-process: 4.789e-06s
+Solving with CaDiCaL 2.0.0
+4508 variables, 7788 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 0.000945826s
+Runtime decision procedure: 0.00633537s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+4509 variables, 7789 clauses
+SAT checker: instance is UNSATISFIABLE
+Runtime Solver: 0.00081861s
+Runtime decision procedure: 0.000885008s
+
+RESULTS:
+Check 1: ipc_protocol::encode.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: src/ipc_protocol.rs:97:30 in function ipc_protocol::encode
+
+Check 2: ipc_protocol::encode.assertion.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:117:9 in function ipc_protocol::encode
+
+Check 3: ipc_protocol::encode.assertion.2
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:118:9 in function ipc_protocol::encode
+
+Check 4: ipc_protocol::encode.assertion.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:119:9 in function ipc_protocol::encode
+
+Check 5: ipc_protocol::encode.assertion.4
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:120:9 in function ipc_protocol::encode
+
+Check 6: ipc_protocol::encode.assertion.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:121:9 in function ipc_protocol::encode
+
+Check 7: ipc_protocol::encode.assertion.6
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:122:9 in function ipc_protocol::encode
+
+Check 8: ipc_protocol::encode.assertion.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:123:9 in function ipc_protocol::encode
+
+Check 9: ipc_protocol::encode.assertion.8
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:124:9 in function ipc_protocol::encode
+
+Check 10: ipc_protocol::encode.assertion.9
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:125:9 in function ipc_protocol::encode
+
+Check 11: ipc_protocol::encode.assertion.10
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:126:9 in function ipc_protocol::encode
+
+Check 12: ipc_protocol::parse_slice.assertion.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 13: ipc_protocol::parse_slice.assertion.2
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 14: ipc_protocol::parse_slice.assertion.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 15: ipc_protocol::parse_slice.assertion.4
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 16: ipc_protocol::parse_slice.assertion.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 17: ipc_protocol::parse_slice.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: src/lib.rs:0:0 in function ipc_protocol::parse_slice
+
+Check 18: ipc_protocol::parse_slice.assertion.6
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 19: ipc_protocol::parse_slice.assertion.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 20: ipc_protocol::parse_slice.assertion.8
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 21: ipc_protocol::parse_slice.assertion.9
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 22: ipc_protocol::parse_slice.assertion.10
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 23: ipc_protocol::parse_slice.assertion.11
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 24: ipc_protocol::parse_slice.assertion.12
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 25: ipc_protocol::parse_slice.assertion.13
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 26: ipc_protocol::parse_slice.assertion.14
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 27: ipc_protocol::parse_slice.assertion.15
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 28: ipc_protocol::parse_slice.assertion.16
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 29: ipc_protocol::MessageKind::wire.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: src/ipc_protocol.rs:38:15 in function ipc_protocol::MessageKind::wire
+
+Check 30: std::option::expect_failed.assertion.1
+	 - Status: SUCCESS
+	 - Description: "This is a placeholder message; Kani doesn't support message formatted at runtime"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:2184:5 in function std::option::expect_failed
+
+Check 31: std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError>.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:1338:15 in function std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError>
+
+Check 32: <std::result::Result<ipc_protocol::MessageKind, ipc_protocol::ParseError> as std::ops::Try>::branch.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:2173:15 in function <std::result::Result<ipc_protocol::MessageKind, ipc_protocol::ParseError> as std::ops::Try>::branch
+
+Check 33: std::result::unwrap_failed.assertion.1
+	 - Status: SUCCESS
+	 - Description: "This is a placeholder message; Kani doesn't support message formatted at runtime"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:1867:5 in function std::result::unwrap_failed
+
+Check 34: ipc_protocol::request_id_valid.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: src/ipc_protocol.rs:85:11 in function ipc_protocol::request_id_valid
+
+Check 35: std::result::Result::<ipc_protocol::Message, ipc_protocol::ParseError>::expect.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:1183:15 in function std::result::Result::<ipc_protocol::Message, ipc_protocol::ParseError>::expect
+
+Check 36: ipc_protocol::kani_proofs::valid_requests_round_trip.assertion.1
+	 - Status: SUCCESS
+	 - Description: "assertion failed: message.kind == MessageKind::Request"
+	 - Location: src/ipc_protocol.rs:363:13 in function ipc_protocol::kani_proofs::valid_requests_round_trip
+
+Check 37: ipc_protocol::kani_proofs::valid_requests_round_trip.assertion.2
+	 - Status: SUCCESS
+	 - Description: "assertion failed: message.opcode == opcode"
+	 - Location: src/ipc_protocol.rs:364:13 in function ipc_protocol::kani_proofs::valid_requests_round_trip
+
+Check 38: ipc_protocol::kani_proofs::valid_requests_round_trip.assertion.3
+	 - Status: SUCCESS
+	 - Description: "assertion failed: message.request_id == request_id"
+	 - Location: src/ipc_protocol.rs:365:13 in function ipc_protocol::kani_proofs::valid_requests_round_trip
+
+Check 39: std::option::Option::<[u8; 16]>::expect.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:969:15 in function std::option::Option::<[u8; 16]>::expect
+
+Check 40: ipc_protocol::MessageKind::from_wire.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:48:18 in function ipc_protocol::MessageKind::from_wire
+
+Check 41: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 42: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 43: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 44: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 45: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 46: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 47: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 48: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 49: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 50: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 51: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 52: <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:30:34 in function <ipc_protocol::MessageKind as std::cmp::PartialEq>::eq
+
+Check 53: ipc_protocol::parse_slice.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:151:16 in function ipc_protocol::parse_slice
+
+Check 54: ipc_protocol::parse_slice.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 55: ipc_protocol::parse_slice.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 56: ipc_protocol::parse_slice.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 57: ipc_protocol::parse_slice.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 58: ipc_protocol::parse_slice.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 59: ipc_protocol::parse_slice.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 60: ipc_protocol::parse_slice.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 61: ipc_protocol::parse_slice.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 62: ipc_protocol::parse_slice.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 63: ipc_protocol::parse_slice.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 64: ipc_protocol::parse_slice.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 65: ipc_protocol::parse_slice.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 66: ipc_protocol::parse_slice.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:155:16 in function ipc_protocol::parse_slice
+
+Check 67: ipc_protocol::parse_slice.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 68: ipc_protocol::parse_slice.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 69: ipc_protocol::parse_slice.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 70: ipc_protocol::parse_slice.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 71: ipc_protocol::parse_slice.pointer_dereference.19
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 72: ipc_protocol::parse_slice.pointer_dereference.20
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 73: ipc_protocol::parse_slice.pointer_dereference.21
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:159:16 in function ipc_protocol::parse_slice
+
+Check 74: ipc_protocol::parse_slice.pointer_dereference.22
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 75: ipc_protocol::parse_slice.pointer_dereference.23
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 76: ipc_protocol::parse_slice.pointer_dereference.24
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 77: ipc_protocol::parse_slice.pointer_dereference.25
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 78: ipc_protocol::parse_slice.pointer_dereference.26
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 79: ipc_protocol::parse_slice.pointer_dereference.27
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 80: ipc_protocol::parse_slice.pointer_dereference.28
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 81: ipc_protocol::parse_slice.pointer_dereference.29
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 82: ipc_protocol::parse_slice.pointer_dereference.30
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 83: ipc_protocol::parse_slice.pointer_dereference.31
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 84: ipc_protocol::parse_slice.pointer_dereference.32
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 85: ipc_protocol::parse_slice.pointer_dereference.33
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 86: ipc_protocol::parse_slice.pointer_dereference.34
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 87: ipc_protocol::parse_slice.pointer_dereference.35
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 88: ipc_protocol::parse_slice.pointer_dereference.36
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 89: ipc_protocol::parse_slice.pointer_dereference.37
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 90: ipc_protocol::parse_slice.pointer_dereference.38
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 91: ipc_protocol::parse_slice.pointer_dereference.39
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 92: ipc_protocol::parse_slice.pointer_dereference.40
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:175:16 in function ipc_protocol::parse_slice
+
+Check 93: ipc_protocol::parse_slice.pointer_dereference.41
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 94: ipc_protocol::parse_slice.pointer_dereference.42
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 95: ipc_protocol::parse_slice.pointer_dereference.43
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 96: ipc_protocol::parse_slice.pointer_dereference.44
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 97: ipc_protocol::parse_slice.pointer_dereference.45
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 98: ipc_protocol::parse_slice.pointer_dereference.46
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 99: ipc_protocol::parse_slice.pointer_dereference.47
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 100: ipc_protocol::parse_slice.pointer_dereference.48
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 101: ipc_protocol::parse_slice.pointer_dereference.49
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 102: ipc_protocol::parse_slice.pointer_dereference.50
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 103: ipc_protocol::parse_slice.pointer_dereference.51
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 104: ipc_protocol::parse_slice.pointer_dereference.52
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 105: ipc_protocol::parse_slice.pointer_dereference.53
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:180:16 in function ipc_protocol::parse_slice
+
+Check 106: ipc_protocol::parse_slice.pointer_dereference.54
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 107: ipc_protocol::parse_slice.pointer_dereference.55
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 108: ipc_protocol::parse_slice.pointer_dereference.56
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 109: ipc_protocol::parse_slice.pointer_dereference.57
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 110: ipc_protocol::parse_slice.pointer_dereference.58
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 111: ipc_protocol::parse_slice.pointer_dereference.59
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 112: ipc_protocol::parse_slice.pointer_dereference.60
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 113: ipc_protocol::parse_slice.pointer_dereference.61
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 114: ipc_protocol::parse_slice.pointer_dereference.62
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 115: ipc_protocol::parse_slice.pointer_dereference.63
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 116: ipc_protocol::parse_slice.pointer_dereference.64
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 117: ipc_protocol::parse_slice.pointer_dereference.65
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 118: ipc_protocol::parse_slice.pointer_dereference.66
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 119: ipc_protocol::parse_slice.pointer_dereference.67
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 120: ipc_protocol::parse_slice.pointer_dereference.68
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 121: ipc_protocol::parse_slice.pointer_dereference.69
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 122: ipc_protocol::parse_slice.pointer_dereference.70
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 123: ipc_protocol::parse_slice.pointer_dereference.71
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 124: ipc_protocol::parse_slice.pointer_dereference.72
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 125: ipc_protocol::parse_slice.pointer_dereference.73
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 126: ipc_protocol::parse_slice.pointer_dereference.74
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 127: ipc_protocol::parse_slice.pointer_dereference.75
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 128: ipc_protocol::parse_slice.pointer_dereference.76
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 129: ipc_protocol::parse_slice.pointer_dereference.77
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 130: ipc_protocol::parse_slice.pointer_dereference.78
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 131: ipc_protocol::parse_slice.pointer_dereference.79
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 132: ipc_protocol::parse_slice.pointer_dereference.80
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 133: ipc_protocol::parse_slice.pointer_dereference.81
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 134: ipc_protocol::parse_slice.pointer_dereference.82
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 135: ipc_protocol::parse_slice.pointer_dereference.83
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 136: ipc_protocol::parse_slice.pointer_dereference.84
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 137: ipc_protocol::parse_slice.pointer_dereference.85
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 138: ipc_protocol::parse_slice.pointer_dereference.86
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 139: ipc_protocol::parse_slice.pointer_dereference.87
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 140: ipc_protocol::parse_slice.pointer_dereference.88
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 141: ipc_protocol::parse_slice.pointer_dereference.89
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 142: ipc_protocol::parse_slice.pointer_dereference.90
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 143: ipc_protocol::parse_slice.pointer_dereference.91
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 144: ipc_protocol::parse_slice.pointer_dereference.92
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 145: ipc_protocol::parse_slice.pointer_dereference.93
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 146: ipc_protocol::parse_slice.pointer_dereference.94
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 147: ipc_protocol::parse_slice.pointer_dereference.95
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 148: ipc_protocol::parse_slice.pointer_dereference.96
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 149: ipc_protocol::parse_slice.pointer_dereference.97
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 150: ipc_protocol::parse_slice.pointer_dereference.98
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 151: ipc_protocol::parse_slice.pointer_dereference.99
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 152: ipc_protocol::parse_slice.pointer_dereference.100
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 153: ipc_protocol::parse_slice.pointer_dereference.101
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 154: ipc_protocol::parse_slice.pointer_dereference.102
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:190:16 in function ipc_protocol::parse_slice
+
+Check 155: ipc_protocol::parse_slice.pointer_dereference.103
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:185:16 in function ipc_protocol::parse_slice
+
+Check 156: ipc_protocol::parse_slice.pointer_dereference.104
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:171:16 in function ipc_protocol::parse_slice
+
+Check 157: <std::result::Result<ipc_protocol::Message, ipc_protocol::ParseError> as std::ops::FromResidual<std::result::Result<std::convert::Infallible, ipc_protocol::ParseError>>>::from_residual.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:2189:23 in function <std::result::Result<ipc_protocol::Message, ipc_protocol::ParseError> as std::ops::FromResidual<std::result::Result<std::convert::Infallible, ipc_protocol::ParseError>>>::from_residual
+
+Check 158: ipc_protocol::encode.array_bounds.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:117:9 in function ipc_protocol::encode
+
+Check 159: ipc_protocol::encode.array_bounds.2
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:118:9 in function ipc_protocol::encode
+
+Check 160: ipc_protocol::encode.array_bounds.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:119:9 in function ipc_protocol::encode
+
+Check 161: ipc_protocol::encode.array_bounds.4
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:120:9 in function ipc_protocol::encode
+
+Check 162: ipc_protocol::encode.array_bounds.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:121:9 in function ipc_protocol::encode
+
+Check 163: ipc_protocol::encode.array_bounds.6
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:122:9 in function ipc_protocol::encode
+
+Check 164: ipc_protocol::encode.array_bounds.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:123:9 in function ipc_protocol::encode
+
+Check 165: ipc_protocol::encode.array_bounds.8
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:124:9 in function ipc_protocol::encode
+
+Check 166: ipc_protocol::encode.array_bounds.9
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:125:9 in function ipc_protocol::encode
+
+Check 167: ipc_protocol::encode.array_bounds.10
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:126:9 in function ipc_protocol::encode
+
+Check 168: std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError>.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:1338:15 in function std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError>
+
+Check 169: std::result::Result::<ipc_protocol::Message, ipc_protocol::ParseError>::expect.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:1183:15 in function std::result::Result::<ipc_protocol::Message, ipc_protocol::ParseError>::expect
+
+
+SUMMARY:
+ ** 0 of 169 failed
+
+VERIFICATION:- SUCCESSFUL
+Verification Time: 0.39850327s
+
+Checking harness ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants...
+CBMC 6.8.0 (cbmc-6.8.0)
+CBMC version 6.8.0 (cbmc-6.8.0) 64-bit x86_64 linux
+Reading GOTO program from file /mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/target/kani/x86_64-unknown-linux-gnu/debug/deps/rust__RNvNtNtCs4yaC4RobyxO_4rust12ipc_protocol11kani_proofs38accepted_packets_satisfy_v1_invariants.out
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Running with 16 object bits, 48 offset bits (user-specified)
+Starting Bounded Model Checking
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs line 1338 column 15 function std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError> thread 0
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 2173 column 15 function <std::result::Result<ipc_protocol::MessageKind, ipc_protocol::ParseError> as std::ops::Try>::branch thread 0
+aborting path on assume(false) at file src/lib.rs line 0 column 0 function ipc_protocol::parse_slice thread 0
+aborting path on assume(false) at file src/ipc_protocol.rs line 85 column 11 function ipc_protocol::request_id_valid thread 0
+aborting path on assume(false) at file src/ipc_protocol.rs line 337 column 19 function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants thread 0
+Runtime Symex: 0.0648535s
+size of program expression: 4525 steps
+slicing removed 3137 assignments
+Generated 194 VCC(s), 51 remaining after simplification
+Runtime Postprocess Equation: 0.00114304s
+Passing problem to propositional reduction
+converting SSA
+Runtime Convert SSA: 0.0033972s
+Running propositional reduction
+Post-processing
+Runtime Post-process: 1.3514e-05s
+Solving with CaDiCaL 2.0.0
+2534 variables, 5556 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 0.000302707s
+Runtime decision procedure: 0.00386849s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+2535 variables, 5557 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 0.00166768s
+Runtime decision procedure: 0.00185585s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+2536 variables, 5558 clauses
+SAT checker: instance is UNSATISFIABLE
+Runtime Solver: 8.6501e-05s
+Runtime decision procedure: 0.000148099s
+
+RESULTS:
+Check 1: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:327:24 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 2: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.2
+	 - Status: SUCCESS
+	 - Description: "assertion failed: bytes[0] == MAGIC_0"
+	 - Location: src/ipc_protocol.rs:327:13 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 3: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:328:24 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 4: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.4
+	 - Status: SUCCESS
+	 - Description: "assertion failed: bytes[1] == MAGIC_1"
+	 - Location: src/ipc_protocol.rs:328:13 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 5: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:329:24 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 6: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.6
+	 - Status: SUCCESS
+	 - Description: "assertion failed: bytes[2] == PROTOCOL_VERSION"
+	 - Location: src/ipc_protocol.rs:329:13 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 7: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:330:24 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 8: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.8
+	 - Status: SUCCESS
+	 - Description: "assertion failed: bytes[5] == FLAGS_NONE"
+	 - Location: src/ipc_protocol.rs:330:13 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 9: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.9
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:331:44 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 10: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.10
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:331:54 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 11: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.11
+	 - Status: SUCCESS
+	 - Description: "assertion failed: u16::from_le_bytes([bytes[6], bytes[7]]) == PAYLOAD_LEN_V1"
+	 - Location: src/ipc_protocol.rs:331:13 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 12: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.12
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:333:37 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 13: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.13
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:333:48 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 14: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.14
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:333:59 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 15: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.15
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:333:70 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 16: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.16
+	 - Status: SUCCESS
+	 - Description: "assertion failed: u32::from_le_bytes([bytes[12], bytes[13], bytes[14], bytes[15]]) ==
+RESERVED_V1"
+	 - Location: src/ipc_protocol.rs:332:13 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 17: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: src/ipc_protocol.rs:337:19 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 18: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.17
+	 - Status: SUCCESS
+	 - Description: "assertion failed: is_response_opcode(message.opcode)"
+	 - Location: src/ipc_protocol.rs:343:21 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 19: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.18
+	 - Status: SUCCESS
+	 - Description: "assertion failed: request_id_valid(MessageKind::Response, message.opcode, message.request_id)"
+	 - Location: src/ipc_protocol.rs:344:21 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 20: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.19
+	 - Status: SUCCESS
+	 - Description: "assertion failed: is_request_opcode(message.opcode)"
+	 - Location: src/ipc_protocol.rs:339:21 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 21: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.assertion.20
+	 - Status: SUCCESS
+	 - Description: "assertion failed: message.request_id != 0"
+	 - Location: src/ipc_protocol.rs:340:21 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 22: <std::result::Result<ipc_protocol::MessageKind, ipc_protocol::ParseError> as std::ops::Try>::branch.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:2173:15 in function <std::result::Result<ipc_protocol::MessageKind, ipc_protocol::ParseError> as std::ops::Try>::branch
+
+Check 23: ipc_protocol::parse_slice.assertion.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 24: ipc_protocol::parse_slice.assertion.2
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 25: ipc_protocol::parse_slice.assertion.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 26: ipc_protocol::parse_slice.assertion.4
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 27: ipc_protocol::parse_slice.assertion.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 28: ipc_protocol::parse_slice.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: src/lib.rs:0:0 in function ipc_protocol::parse_slice
+
+Check 29: ipc_protocol::parse_slice.assertion.6
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 30: ipc_protocol::parse_slice.assertion.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 31: ipc_protocol::parse_slice.assertion.8
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 32: ipc_protocol::parse_slice.assertion.9
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 33: ipc_protocol::parse_slice.assertion.10
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 34: ipc_protocol::parse_slice.assertion.11
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 35: ipc_protocol::parse_slice.assertion.12
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 36: ipc_protocol::parse_slice.assertion.13
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 37: ipc_protocol::parse_slice.assertion.14
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 38: ipc_protocol::parse_slice.assertion.15
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 39: ipc_protocol::parse_slice.assertion.16
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 40: ipc_protocol::request_id_valid.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: src/ipc_protocol.rs:85:11 in function ipc_protocol::request_id_valid
+
+Check 41: std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError>.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:1338:15 in function std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError>
+
+Check 42: std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError>.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:1338:15 in function std::option::Option::<ipc_protocol::MessageKind>::ok_or::<ipc_protocol::ParseError>
+
+Check 43: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:326:30 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 44: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:327:24 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 45: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.2
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:328:24 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 46: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:329:24 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 47: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.4
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:330:24 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 48: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:331:44 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 49: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.6
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:331:54 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 50: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:333:37 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 51: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.8
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:333:48 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 52: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.9
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:333:59 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 53: ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants.array_bounds.10
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/ipc_protocol.rs:333:70 in function ipc_protocol::kani_proofs::accepted_packets_satisfy_v1_invariants
+
+Check 54: <std::result::Result<ipc_protocol::Message, ipc_protocol::ParseError> as std::ops::FromResidual<std::result::Result<std::convert::Infallible, ipc_protocol::ParseError>>>::from_residual.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:2189:23 in function <std::result::Result<ipc_protocol::Message, ipc_protocol::ParseError> as std::ops::FromResidual<std::result::Result<std::convert::Infallible, ipc_protocol::ParseError>>>::from_residual
+
+Check 55: ipc_protocol::parse_slice.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:151:16 in function ipc_protocol::parse_slice
+
+Check 56: ipc_protocol::parse_slice.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 57: ipc_protocol::parse_slice.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 58: ipc_protocol::parse_slice.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 59: ipc_protocol::parse_slice.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 60: ipc_protocol::parse_slice.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 61: ipc_protocol::parse_slice.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:154:8 in function ipc_protocol::parse_slice
+
+Check 62: ipc_protocol::parse_slice.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 63: ipc_protocol::parse_slice.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 64: ipc_protocol::parse_slice.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 65: ipc_protocol::parse_slice.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 66: ipc_protocol::parse_slice.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 67: ipc_protocol::parse_slice.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:154:31 in function ipc_protocol::parse_slice
+
+Check 68: ipc_protocol::parse_slice.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:155:16 in function ipc_protocol::parse_slice
+
+Check 69: ipc_protocol::parse_slice.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 70: ipc_protocol::parse_slice.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 71: ipc_protocol::parse_slice.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 72: ipc_protocol::parse_slice.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 73: ipc_protocol::parse_slice.pointer_dereference.19
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 74: ipc_protocol::parse_slice.pointer_dereference.20
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:158:8 in function ipc_protocol::parse_slice
+
+Check 75: ipc_protocol::parse_slice.pointer_dereference.21
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:159:16 in function ipc_protocol::parse_slice
+
+Check 76: ipc_protocol::parse_slice.pointer_dereference.22
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 77: ipc_protocol::parse_slice.pointer_dereference.23
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 78: ipc_protocol::parse_slice.pointer_dereference.24
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 79: ipc_protocol::parse_slice.pointer_dereference.25
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 80: ipc_protocol::parse_slice.pointer_dereference.26
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 81: ipc_protocol::parse_slice.pointer_dereference.27
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:162:39 in function ipc_protocol::parse_slice
+
+Check 82: ipc_protocol::parse_slice.pointer_dereference.28
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 83: ipc_protocol::parse_slice.pointer_dereference.29
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 84: ipc_protocol::parse_slice.pointer_dereference.30
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 85: ipc_protocol::parse_slice.pointer_dereference.31
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 86: ipc_protocol::parse_slice.pointer_dereference.32
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 87: ipc_protocol::parse_slice.pointer_dereference.33
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:163:18 in function ipc_protocol::parse_slice
+
+Check 88: ipc_protocol::parse_slice.pointer_dereference.34
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 89: ipc_protocol::parse_slice.pointer_dereference.35
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 90: ipc_protocol::parse_slice.pointer_dereference.36
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 91: ipc_protocol::parse_slice.pointer_dereference.37
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 92: ipc_protocol::parse_slice.pointer_dereference.38
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 93: ipc_protocol::parse_slice.pointer_dereference.39
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:174:8 in function ipc_protocol::parse_slice
+
+Check 94: ipc_protocol::parse_slice.pointer_dereference.40
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:175:16 in function ipc_protocol::parse_slice
+
+Check 95: ipc_protocol::parse_slice.pointer_dereference.41
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 96: ipc_protocol::parse_slice.pointer_dereference.42
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 97: ipc_protocol::parse_slice.pointer_dereference.43
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 98: ipc_protocol::parse_slice.pointer_dereference.44
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 99: ipc_protocol::parse_slice.pointer_dereference.45
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 100: ipc_protocol::parse_slice.pointer_dereference.46
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:178:43 in function ipc_protocol::parse_slice
+
+Check 101: ipc_protocol::parse_slice.pointer_dereference.47
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 102: ipc_protocol::parse_slice.pointer_dereference.48
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 103: ipc_protocol::parse_slice.pointer_dereference.49
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 104: ipc_protocol::parse_slice.pointer_dereference.50
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 105: ipc_protocol::parse_slice.pointer_dereference.51
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 106: ipc_protocol::parse_slice.pointer_dereference.52
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:178:53 in function ipc_protocol::parse_slice
+
+Check 107: ipc_protocol::parse_slice.pointer_dereference.53
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:180:16 in function ipc_protocol::parse_slice
+
+Check 108: ipc_protocol::parse_slice.pointer_dereference.54
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 109: ipc_protocol::parse_slice.pointer_dereference.55
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 110: ipc_protocol::parse_slice.pointer_dereference.56
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 111: ipc_protocol::parse_slice.pointer_dereference.57
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 112: ipc_protocol::parse_slice.pointer_dereference.58
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 113: ipc_protocol::parse_slice.pointer_dereference.59
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:183:42 in function ipc_protocol::parse_slice
+
+Check 114: ipc_protocol::parse_slice.pointer_dereference.60
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 115: ipc_protocol::parse_slice.pointer_dereference.61
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 116: ipc_protocol::parse_slice.pointer_dereference.62
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 117: ipc_protocol::parse_slice.pointer_dereference.63
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 118: ipc_protocol::parse_slice.pointer_dereference.64
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 119: ipc_protocol::parse_slice.pointer_dereference.65
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:183:52 in function ipc_protocol::parse_slice
+
+Check 120: ipc_protocol::parse_slice.pointer_dereference.66
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 121: ipc_protocol::parse_slice.pointer_dereference.67
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 122: ipc_protocol::parse_slice.pointer_dereference.68
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 123: ipc_protocol::parse_slice.pointer_dereference.69
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 124: ipc_protocol::parse_slice.pointer_dereference.70
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 125: ipc_protocol::parse_slice.pointer_dereference.71
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:183:62 in function ipc_protocol::parse_slice
+
+Check 126: ipc_protocol::parse_slice.pointer_dereference.72
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 127: ipc_protocol::parse_slice.pointer_dereference.73
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 128: ipc_protocol::parse_slice.pointer_dereference.74
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 129: ipc_protocol::parse_slice.pointer_dereference.75
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 130: ipc_protocol::parse_slice.pointer_dereference.76
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 131: ipc_protocol::parse_slice.pointer_dereference.77
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:183:73 in function ipc_protocol::parse_slice
+
+Check 132: ipc_protocol::parse_slice.pointer_dereference.78
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 133: ipc_protocol::parse_slice.pointer_dereference.79
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 134: ipc_protocol::parse_slice.pointer_dereference.80
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 135: ipc_protocol::parse_slice.pointer_dereference.81
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 136: ipc_protocol::parse_slice.pointer_dereference.82
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 137: ipc_protocol::parse_slice.pointer_dereference.83
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:188:40 in function ipc_protocol::parse_slice
+
+Check 138: ipc_protocol::parse_slice.pointer_dereference.84
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 139: ipc_protocol::parse_slice.pointer_dereference.85
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 140: ipc_protocol::parse_slice.pointer_dereference.86
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 141: ipc_protocol::parse_slice.pointer_dereference.87
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 142: ipc_protocol::parse_slice.pointer_dereference.88
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 143: ipc_protocol::parse_slice.pointer_dereference.89
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:188:51 in function ipc_protocol::parse_slice
+
+Check 144: ipc_protocol::parse_slice.pointer_dereference.90
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 145: ipc_protocol::parse_slice.pointer_dereference.91
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 146: ipc_protocol::parse_slice.pointer_dereference.92
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 147: ipc_protocol::parse_slice.pointer_dereference.93
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 148: ipc_protocol::parse_slice.pointer_dereference.94
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 149: ipc_protocol::parse_slice.pointer_dereference.95
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:188:62 in function ipc_protocol::parse_slice
+
+Check 150: ipc_protocol::parse_slice.pointer_dereference.96
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 151: ipc_protocol::parse_slice.pointer_dereference.97
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 152: ipc_protocol::parse_slice.pointer_dereference.98
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 153: ipc_protocol::parse_slice.pointer_dereference.99
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 154: ipc_protocol::parse_slice.pointer_dereference.100
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 155: ipc_protocol::parse_slice.pointer_dereference.101
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/ipc_protocol.rs:188:73 in function ipc_protocol::parse_slice
+
+Check 156: ipc_protocol::parse_slice.pointer_dereference.102
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:190:16 in function ipc_protocol::parse_slice
+
+Check 157: ipc_protocol::parse_slice.pointer_dereference.103
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:185:16 in function ipc_protocol::parse_slice
+
+Check 158: ipc_protocol::parse_slice.pointer_dereference.104
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:171:16 in function ipc_protocol::parse_slice
+
+Check 159: ipc_protocol::MessageKind::from_wire.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/ipc_protocol.rs:48:18 in function ipc_protocol::MessageKind::from_wire
+
+
+SUMMARY:
+ ** 0 of 159 failed
+
+VERIFICATION:- SUCCESSFUL
+Verification Time: 0.38615072s
+
+Manual Harness Summary:
+Complete - 2 successfully verified harnesses, 0 failures, 2 total.
+>>> PASS
+
+========== cargo-fuzz: ipc_v1_parser ==========
+    Updating crates.io index
+     Locking 10 packages to highest Rust 1.100.0-nightly compatible versions
+   Compiling libc v0.2.189
+   Compiling find-msvc-tools v0.1.11
+   Compiling shlex v2.0.1
+   Compiling arbitrary v1.4.2
+   Compiling jobserver v0.1.35
+   Compiling cc v1.4.4
+   Compiling libfuzzer-sys v0.4.13
+   Compiling securegsi-fuzz v0.0.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/fuzz)
+warning: function `encode_request` is never used
+   --> fuzz_targets/../../src/ipc_protocol.rs:130:15
+    |
+130 | pub(crate) fn encode_request(opcode: u8, request_id: u32) -> Option<[u8; PACKET_LEN]> {
+    |               ^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `matches_response` is never used
+   --> fuzz_targets/../../src/ipc_protocol.rs:200:21
+    |
+200 | pub(crate) const fn matches_response(
+    |                     ^^^^^^^^^^^^^^^^
+
+warning: `securegsi-fuzz` (bin "ipc_v1_parser") generated 2 warnings
+    Finished `release` profile [optimized + debuginfo] target(s) in 11.46s
+   Compiling libc v0.2.189
+   Compiling jobserver v0.1.35
+   Compiling cc v1.4.4
+   Compiling libfuzzer-sys v0.4.13
+   Compiling securegsi-fuzz v0.0.0 (/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/fuzz)
+warning: function `encode_request` is never used
+   --> fuzz_targets/../../src/ipc_protocol.rs:130:15
+    |
+130 | pub(crate) fn encode_request(opcode: u8, request_id: u32) -> Option<[u8; PACKET_LEN]> {
+    |               ^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `matches_response` is never used
+   --> fuzz_targets/../../src/ipc_protocol.rs:200:21
+    |
+200 | pub(crate) const fn matches_response(
+    |                     ^^^^^^^^^^^^^^^^
+
+warning: `securegsi-fuzz` (bin "ipc_v1_parser") generated 2 warnings
+    Finished `release` profile [optimized + debuginfo] target(s) in 9.88s
+     Running `fuzz/target/x86_64-unknown-linux-gnu/release/ipc_v1_parser -artifact_prefix=/mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/fuzz/artifacts/ipc_v1_parser/ -max_total_time=60 /mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/fuzz/corpus/ipc_v1_parser`
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 2162838866
+INFO: Loaded 1 modules   (338 inline 8-bit counters): 338 [0x59b81c78f4f0, 0x59b81c78f642), 
+INFO: Loaded 1 PC tables (338 PCs): 338 [0x59b81c78f648,0x59b81c790b68), 
+INFO:        0 files found in /mnt/c/Users/Sharof/AndroidStudioProjects/SecureGSI/rust/fuzz/corpus/ipc_v1_parser
+INFO: -max_len is not provided; libFuzzer will not generate inputs larger than 4096 bytes
+INFO: A corpus is not provided, starting from an empty corpus
+#2	INITED cov: 16 ft: 17 corp: 1/1b exec/s: 0 rss: 32Mb
+#4194304	pulse  cov: 16 ft: 17 corp: 1/1b lim: 4096 exec/s: 2097152 rss: 349Mb
+#5879652	DONE   cov: 16 ft: 17 corp: 1/1b lim: 4096 exec/s: 48997 rss: 475Mb
+Done 5879652 runs in 120 second(s)
+>>> PASS
+
+========== Gitleaks secrets ==========
+[90m1:43PM[0m [33mWRN[0m [1mwarning: exhaustive rename detection was skipped due to too many files.[0m
+[90m1:43PM[0m [33mWRN[0m [1mwarning: you may want to set your diff.renameLimit variable to at least 4187 and retry the command.[0m
+[90m1:44PM[0m [32mINF[0m [1m12 commits scanned.[0m
+[90m1:44PM[0m [32mINF[0m [1mscanned ~32925383 bytes (32.93 MB) in 37.6s[0m
+[90m1:44PM[0m [32mINF[0m [1mno leaks found[0m
+>>> PASS
+
+========== OSV-Scanner ==========
+>>> SKIP: not installed
+
+========== Semgrep strict SAST ==========
+Semgrep raw findings: 114
+Semgrep unique findings: 114
+Report-only generic unsafe findings: 113
+Report-only intentional launcher findings: 1
+Blocking security findings: 0
+Scanner/parser errors: 0
+Manifest exported-activity policy: all exported activities are MAIN+LAUNCHER
+Exported activity/activity-alias components:
+  .MainActivity
+>>> PASS
+
+Semgrep stderr / diagnostics:
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 41 files tracked by git with 1081 Code rules:
+                                                                                                                        
+  Language      Rules   Files          Origin      Rules                                                                
+ ─────────────────────────────        ───────────────────                                                               
+  <multilang>      49      41          Community    1081                                                                
+  kotlin           17       9                                                                                           
+  rust             11       8                                                                                           
+                                                                                                                        
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 114 (114 blocking)
+ • Rules run: 76
+ • Targets scanned: 41
+ • Parsed lines: ~100.0%
+ • Scan skipped: 
+   ◦ Files larger than  files 1.0 MB: 2
+ • Scan was limited to files tracked by git
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 76 rules on 41 files: 114 findings.
+
+📢 Too many findings? Try Semgrep Pro for more powerful queries and less noise.
+   See https://sg.run/false-positives.
+
+========================================
+SECUREGSI STRICT SECURITY GATE: PASS
+========================================

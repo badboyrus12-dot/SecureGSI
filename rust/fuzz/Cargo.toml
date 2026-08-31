@@ -1,0 +1,21 @@
+[package]
+name = "securegsi-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+
+[[bin]]
+name = "ipc_v1_parser"
+path = "fuzz_targets/ipc_v1_parser.rs"
+test = false
+doc = false
+bench = false
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }

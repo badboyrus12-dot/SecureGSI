@@ -64,7 +64,7 @@ class AegisIsolatedService : Service() {
                                 (e.message ?: e.javaClass.simpleName)
                     }
 
-                Log.i(
+                debugInfo(
                     TAG,
                     "PERSISTENT_EXECUTOR_START_RESULT=$result"
                 )
@@ -88,7 +88,7 @@ class AegisIsolatedService : Service() {
                                 (e.message ?: e.javaClass.simpleName)
                     }
 
-                Log.i(
+                debugInfo(
                     TAG,
                     "PERSISTENT_EXECUTOR_PING_RESULT=$result"
                 )
@@ -110,7 +110,7 @@ class AegisIsolatedService : Service() {
                                 (e.message ?: e.javaClass.simpleName)
                     }
 
-                Log.i(
+                debugInfo(
                     TAG,
                     "PERSISTENT_EXECUTOR_STATUS_RESULT=$result"
                 )
@@ -132,7 +132,7 @@ class AegisIsolatedService : Service() {
                                 (e.message ?: e.javaClass.simpleName)
                     }
 
-                Log.i(
+                debugInfo(
                     TAG,
                     "PERSISTENT_EXECUTOR_SHUTDOWN_RESULT=$result"
                 )
@@ -180,7 +180,7 @@ class AegisIsolatedService : Service() {
                             (e.message ?: e.javaClass.simpleName)
                 }
 
-            Log.i(
+            debugInfo(
                 TAG,
                 "EXECUTOR_PROOF_RESULT=$executorProof"
             )
@@ -194,10 +194,39 @@ class AegisIsolatedService : Service() {
         }
     }
 
+    private fun isDebuggableBuild(): Boolean {
+        return applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+    }
+
+    private fun debugInfo(
+        tag: String,
+        message: String
+    ) {
+        if (isDebuggableBuild()) {
+            Log.i(tag, message)
+        }
+    }
+
+    private fun debugWarn(
+        tag: String,
+        message: String,
+        error: Throwable? = null
+    ) {
+        if (!isDebuggableBuild()) {
+            return
+        }
+
+        if (error == null) {
+            Log.w(tag, message)
+        } else {
+            Log.w(tag, message, error)
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
 
-        Log.i(
+        debugInfo(
             TAG,
             "started pid=${Process.myPid()} uid=${Process.myUid()}"
         )
@@ -208,7 +237,7 @@ class AegisIsolatedService : Service() {
                     .readText()
                     .trim()
 
-            Log.i(
+            debugInfo(
                 TAG,
                 "SELinux=$selinuxContext"
             )
@@ -216,7 +245,7 @@ class AegisIsolatedService : Service() {
             val statusBefore =
                 readSecurityStatus()
 
-            Log.i(
+            debugInfo(
                 TAG,
                 "STATUS_BEFORE=$statusBefore"
             )
@@ -230,7 +259,7 @@ class AegisIsolatedService : Service() {
             val noNewPrivsResult =
                 RustBridge.enableNoNewPrivs()
 
-            Log.i(
+            debugInfo(
                 TAG,
                 "NNP_RESULT=$noNewPrivsResult"
             )
@@ -238,7 +267,7 @@ class AegisIsolatedService : Service() {
             val statusAfterNnp =
                 readSecurityStatus()
 
-            Log.i(
+            debugInfo(
                 TAG,
                 "STATUS_AFTER_NNP=$statusAfterNnp"
             )
@@ -254,7 +283,7 @@ class AegisIsolatedService : Service() {
             val seccompResult =
                 RustBridge.installMinimalSeccomp()
 
-            Log.i(
+            debugInfo(
                 TAG,
                 "SECCOMP_RESULT=$seccompResult"
             )
@@ -262,7 +291,7 @@ class AegisIsolatedService : Service() {
             val seccompTestResult =
                 RustBridge.testMinimalSeccomp()
 
-            Log.i(
+            debugInfo(
                 TAG,
                 "SECCOMP_TEST_RESULT=$seccompTestResult"
             )
@@ -270,7 +299,7 @@ class AegisIsolatedService : Service() {
             val directSvcTestResult =
                 RustBridge.testDirectSvcSeccomp()
 
-            Log.i(
+            debugInfo(
                 TAG,
                 "DIRECT_SVC_TEST_RESULT=$directSvcTestResult"
             )
@@ -278,16 +307,23 @@ class AegisIsolatedService : Service() {
             val statusAfterSeccomp =
                 readSecurityStatus()
 
-            Log.i(
+            debugInfo(
                 TAG,
                 "STATUS_AFTER_SECCOMP=$statusAfterSeccomp"
             )
         } catch (e: Throwable) {
-            Log.e(
-                TAG,
-                "security probe failed",
-                e
-            )
+            if (isDebuggableBuild()) {
+                Log.e(
+                    TAG,
+                    "security probe failed",
+                    e
+                )
+            } else {
+                Log.e(
+                    TAG,
+                    "security probe failed"
+                )
+            }
         }
     }
 
@@ -306,7 +342,7 @@ class AegisIsolatedService : Service() {
                 ?.toIntOrNull()
 
         if (pid == null) {
-            Log.w(
+            debugWarn(
                 TAG,
                 "PERSISTENT_EXECUTOR_FD_AUDIT: PID_NOT_FOUND"
             )
@@ -325,7 +361,7 @@ class AegisIsolatedService : Service() {
                             ?: Int.MAX_VALUE
                     }
             } catch (e: Throwable) {
-                Log.w(
+                debugWarn(
                     TAG,
                     "PERSISTENT_EXECUTOR_FD_AUDIT: FAILED pid=$pid",
                     e
@@ -334,7 +370,7 @@ class AegisIsolatedService : Service() {
             }
 
         if (entries == null) {
-            Log.w(
+            debugWarn(
                 TAG,
                 "PERSISTENT_EXECUTOR_FD_AUDIT: UNAVAILABLE pid=$pid"
             )
@@ -353,7 +389,7 @@ class AegisIsolatedService : Service() {
                 "${entry.name} -> $target"
             }
 
-        Log.i(
+        debugInfo(
             TAG,
             "PERSISTENT_EXECUTOR_FD_AUDIT " +
                     "pid=$pid count=${entries.size} fds=[$details]"

@@ -224,8 +224,8 @@ mod platform_impl {
     /// the seccomp filter, including against a direct ARM64 syscall attempt.
     #[cfg(target_arch = "aarch64")]
     fn verify_executor_seccomp_boundary() -> Result<(i64, i64), i32> {
-        let getpid_result = direct_svc_syscall0(libc::SYS_getpid as i64);
-        let getppid_result = direct_svc_syscall0(libc::SYS_getppid as i64);
+        let getpid_result = direct_svc_syscall0(libc::SYS_getpid);
+        let getppid_result = direct_svc_syscall0(libc::SYS_getppid);
         let expected_block = -(libc::EPERM as i64);
 
         if getpid_result > 0 && getppid_result == expected_block {

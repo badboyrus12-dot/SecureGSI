@@ -49,6 +49,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+private fun debugPrintStackTrace(error: Throwable) {
+    if (android.os.Debug.isDebuggerConnected()) {
+        error.printStackTrace()
+    }
+}
+
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -460,7 +466,7 @@ fun ImagesScreen(
 
         } catch (e: Exception) {
 
-            e.printStackTrace()
+            debugPrintStackTrace(e)
 
             selectedImage = null
             header = null
@@ -604,7 +610,7 @@ fun ImagesScreen(
 
                             } catch (e: Exception) {
 
-                                e.printStackTrace()
+                                debugPrintStackTrace(e)
 
                                 header = null
                                 error =
@@ -695,7 +701,7 @@ fun SecurityScreen(
         try {
             RustBridge.guestStatus()
         } catch (e: Throwable) {
-            e.printStackTrace()
+            debugPrintStackTrace(e)
             "SecureGSI Guest Runtime\nStatus: UNKNOWN"
         }
     }
@@ -795,7 +801,7 @@ fun SecurityScreen(
 
                                 status
                             } catch (e: Throwable) {
-                                e.printStackTrace()
+                                debugPrintStackTrace(e)
 
                                 guestRunning = false
 
@@ -823,7 +829,7 @@ fun SecurityScreen(
 
                                 status
                             } catch (e: Throwable) {
-                                e.printStackTrace()
+                                debugPrintStackTrace(e)
 
                                 "Failed to stop guest: ${
                                     e.message ?: e.javaClass.simpleName
@@ -847,7 +853,7 @@ fun SecurityScreen(
 
                                 status
                             } catch (e: Throwable) {
-                                e.printStackTrace()
+                                debugPrintStackTrace(e)
 
                                 "Failed to read guest status: ${
                                     e.message ?: e.javaClass.simpleName
@@ -970,7 +976,7 @@ fun SecurityScreen(
                             runtimeResult = try {
                                 RustBridge.testContainerRuntime()
                             } catch (e: Throwable) {
-                                e.printStackTrace()
+                                debugPrintStackTrace(e)
 
                                 runtimeError =
                                     e.message ?: e.javaClass.simpleName

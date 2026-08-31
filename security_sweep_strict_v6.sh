@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-SCRIPT_VERSION="SecureGSI strict sweep v5 / 2026-08-27"
+SCRIPT_VERSION="SecureGSI strict sweep v6 / 2026-08-31"
 FAIL=0
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Work whether the script is placed in:
-#   SecureGSI/security_sweep_strict_v4.sh
+#   SecureGSI/security_sweep_strict_v6.sh
 # or accidentally in:
-#   SecureGSI/rust/security_sweep_strict_v4.sh
+#   SecureGSI/rust/security_sweep_strict_v6.sh
 if [ -f "$SCRIPT_DIR/rust/Cargo.toml" ]; then
     ROOT="$SCRIPT_DIR"
     RUST_DIR="$ROOT/rust"
@@ -93,13 +93,25 @@ cd "$RUST_DIR" || exit 2
 run "cargo fmt" \
     cargo fmt --all -- --check
 
+if [ -f "$RUST_DIR/fuzz/Cargo.toml" ]; then
+    run "cargo fmt fuzz harness" \
+        cargo fmt --manifest-path "$RUST_DIR/fuzz/Cargo.toml" --all -- --check
+fi
+
 run "cargo check host" \
     cargo check --all-targets --all-features
 
-run "cargo clippy strict" \
+run "cargo clippy strict host" \
     cargo clippy --all-targets --all-features -- \
     -D warnings \
-    -D clippy::undocumented_unsafe_blocks
+    -D clippy::undocumented_unsafe_blocks \
+    -D clippy::mem_forget
+
+run "cargo clippy strict Android ARM64 production" \
+    cargo clippy --target aarch64-linux-android --lib --all-features -- \
+    -D warnings \
+    -D clippy::undocumented_unsafe_blocks \
+    -D clippy::mem_forget
 
 # ---------------------------------------------------------------------------
 # 2. Tests
@@ -210,16 +222,21 @@ fi
 
 FUZZ_LIST="$(mktemp)"
 
-if cargo fuzz list >"$FUZZ_LIST" 2>/dev/null && [ -s "$FUZZ_LIST" ]; then
+if cargo +nightly fuzz list >"$FUZZ_LIST" 2>/dev/null && [ -s "$FUZZ_LIST" ]; then
     while IFS= read -r target; do
         [ -z "$target" ] && continue
 
         run "cargo-fuzz: $target" \
-            cargo fuzz run "$target" -- -max_total_time=60
+            cargo +nightly fuzz run "$target" -- -max_total_time=60
     done <"$FUZZ_LIST"
 else
-    skip "cargo-fuzz" \
-        "no fuzz targets yet; REQUIRED once encrypted storage/parser code is added"
+    if cargo +nightly --version >/dev/null 2>&1; then
+        skip "cargo-fuzz" \
+            "no fuzz targets discovered"
+    else
+        run "cargo-fuzz nightly toolchain" \
+            bash -lc 'echo "nightly Rust toolchain is required for cargo-fuzz" >&2; exit 1'
+    fi
 fi
 
 rm -f "$FUZZ_LIST"

@@ -12,6 +12,12 @@ data class ImageInfo(
 
 object ImageManager {
 
+    private fun debugPrintStackTrace(error: Throwable) {
+        if (android.os.Debug.isDebuggerConnected()) {
+            error.printStackTrace()
+        }
+    }
+
     fun getImageInfo(
         context: Context,
         uri: Uri
@@ -40,7 +46,7 @@ object ImageManager {
             )
 
         } catch (e: Exception) {
-            e.printStackTrace()
+            debugPrintStackTrace(e)
             null
         }
     }
